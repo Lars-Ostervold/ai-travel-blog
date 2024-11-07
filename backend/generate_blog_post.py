@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from get_blog_topic import get_blog_topic
 from supabase import create_client, Client
 import requests
+import tempfile
 # import io from BytesIO
 
 #Failure email
@@ -18,9 +19,9 @@ from email.mime.multipart import MIMEMultipart
 load_dotenv()
 client = OpenAI() #API key is stored in .env file
 
-url: str = os.environ.get("SUPABASE_URL")
+supabase_url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
-supabase: Client = create_client(url, key)
+supabase: Client = create_client(supabase_url, key)
 
 
 def send_failure_email(prompt):
@@ -81,6 +82,13 @@ def generate_image_prompts_from_blog_post(blog_post):
     prompts = completion.choices[0].message.content.split("\n")
     return [prompt.strip() for prompt in prompts if prompt.strip()]
 
+def upload_image_to_supabase(image_path, image_name):
+    with open(image_path, "rb") as image_file:
+        response = supabase.storage().from_("images").upload(image_name, image_file)
+        if response.status_code == 200:
+            return f"{supabase_url}/storage/v1/object/public/images/{image_name}"
+        else:
+            raise Exception(f"Failed to upload image: {response.json()}")
 
 
 def image_generation(blog_post):
@@ -89,7 +97,7 @@ def image_generation(blog_post):
         try:
             # prompts = generate_image_prompts_from_blog_post(blog_post)
             prompts = ["8k photography of a wooden bridge with beautiful paintings, 4k HD DSLR Nikon photography", "8k photography of a shimmering lake surrounded by mountains, 4k HD DSLR Nikon photography", "8k photography of a sandstone lion monument, 4k HD DSLR Nikon photography", "8k photography of a cobblestone street with medieval buildings, 4k HD DSLR Nikon photography"]
-            
+            image_urls = []
             for prompt in prompts:
                 success = False
                 for image_attempt in range(max_attempts):
@@ -103,11 +111,24 @@ def image_generation(blog_post):
                             n=1,
                         )
                         image_url = response.data[0].url
-                        print(image_url)
+                        
+                        # Save the image to Supabase
+                        image_response = requests.get(image_url)
+                        if image_response.status_code == 200:
+                            #store in temp file
+                            with tempfile.TemporaryFile() as f:
+                                f.write(image_response.content)
+                                temp_file_path = f.name
+                            
+                            # Upload to Supabase
+                            image_name = f"image_{attempt}_{image_attempt}.png"
+                            supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
+                            image_urls.append(supabase_image_url)
+
+
                         success = True
                     except Exception as e:
                         print(f"Image generation attempt {image_attempt + 1} failed: {e}")
-                    break
                 if not success:
                     raise Exception(f"Failed to generate image for prompt: {prompt}")
             return prompts
