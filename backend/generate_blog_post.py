@@ -84,19 +84,17 @@ def generate_image_prompts_from_blog_post(blog_post):
 
 def upload_image_to_supabase(image_path, image_name):
     with open(image_path, "rb") as image_file:
-        response = supabase.storage().from_("images").upload(image_name, image_file)
+        response = supabase.storage.from_("travel-blog-images").upload(image_name, image_file)
         if response.status_code == 200:
             return f"{supabase_url}/storage/v1/object/public/images/{image_name}"
         else:
             raise Exception(f"Failed to upload image: {response.json()}")
 
 
-def image_generation(blog_post):
+def image_generation(prompts):
     max_attempts = 5
     for attempt in range(max_attempts):
         try:
-            # prompts = generate_image_prompts_from_blog_post(blog_post)
-            prompts = ["8k photography of a wooden bridge with beautiful paintings, 4k HD DSLR Nikon photography", "8k photography of a shimmering lake surrounded by mountains, 4k HD DSLR Nikon photography", "8k photography of a sandstone lion monument, 4k HD DSLR Nikon photography", "8k photography of a cobblestone street with medieval buildings, 4k HD DSLR Nikon photography"]
             image_urls = []
             for prompt in prompts:
                 success = False
@@ -116,15 +114,14 @@ def image_generation(blog_post):
                         image_response = requests.get(image_url)
                         if image_response.status_code == 200:
                             #store in temp file
-                            with tempfile.TemporaryFile() as f:
-                                f.write(image_response.content)
-                                temp_file_path = f.name
+                            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
+                                temp_file.write(image_response.content)
+                                temp_file_path = temp_file.name
                             
                             # Upload to Supabase
                             image_name = f"image_{attempt}_{image_attempt}.png"
                             supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
                             image_urls.append(supabase_image_url)
-
 
                         success = True
                     except Exception as e:
@@ -176,11 +173,15 @@ def mark_spots_for_images(blog_post, prompts):
 
     return marked_blog_post
 
+#Troubleshooting
 blog_post = r"Lucerne, Switzerland, is a charming city known for its stunning lake views, historical architecture, and picturesque landscapes. Here are some of the best places to visit when exploring this beautiful Swiss destination:\n\n1. **Chapel Bridge (Kapellbrücke)**: This iconic wooden bridge, adorned with beautiful paintings that date back to the 17th century, is one of Lucerne's most recognizable landmarks. Its picturesque setting along the Reuss River makes it a perfect spot for photos.\n2. **Lake Lucerne (Vierwaldstättersee)**: The shimmering waters of Lake Lucerne are surrounded by majestic mountains and offer various activities, such as boat cruises, swimming, and hiking. Taking a scenic boat trip on the lake provides breathtaking views of the surrounding landscapes.\n3. **Lion Monument (Löwendenkmal)**: Carved into a sandstone rock, this poignant monument commemorates the Swiss Guards who were killed during the French Revolution. The sculpture depicts a dying lion and is a symbol of bravery and loyalty, making it a must-see.\n4. **Old Town (Altstadt)**: Stroll through the cobblestone streets of Lucerne’s Old Town, where you’ll find well-preserved medieval buildings, colorful frescoes, and charming shops. Don’t miss the picturesque Weinmarkt square and the beautiful Town Hall (Rathaus).\n5. **Musegg Wall (Museggmauer)**: This ancient fortification, built in the 14th century, provides a glimpse into Lucerne's history. You can walk along parts of the wall and see several of its towers, some of which are open to the public.\n6. **Mt. Pilatus**: Just a short trip from Lucerne, Mt. Pilatus offers spectacular views of the Alps and the surrounding region. You can take the world's steepest cogwheel railway or a gondola lift to reach the peak. Hiking trails in the area are also popular in summer.\n7. **Richard Wagner Museum**: Housed in the villa where composer Richard Wagner lived, this museum showcases his life and works. The location by the lake offers beautiful views, and visitors can learn about Wagner's contributions to music.\n8. **Swiss Museum of Transport**: This unique museum is dedicated to all forms of transportation, featuring exhibits on trains, planes, automobiles, and more. It’s particularly engaging for families, offering interactive displays and historical artifacts.\n9. **Rosengart Collection**: Art enthusiasts will appreciate this private collection, which includes works by renowned artists such as Picasso and Klee. The gallery is housed in a former bank building, adding an extra twist to your visit.\n10. **Weggis and Vitznau**: These charming villages along the shores of Lake Lucerne are perfect for a day trip. Enjoy walks along the waterfront, take in the mountain views, or indulge in a lakeside lunch.\n11. **KKL Luzern (Culture and Congress Centre)**: Designed by the renowned architect Jean Nouvel, this modern architectural marvel hosts concerts, exhibitions, and events. The concert hall features outstanding acoustics, making it a great place to catch a performance.\n\nLucerne is a beautiful blend of historical charm and natural beauty, offering something for every type of traveler. Whether you're interested in cultural experiences, outdoor adventures, or simply enjoying the views, this Swiss city is sure to leave a lasting impression."
+prompts = ["8k photography of a sandstone lion monument, 4k HD DSLR Nikon photography"]
 
+
+#---Execution--#
 # blog_post = text_generation()
-image_generation(blog_post)
 # prompts = generate_image_prompts_from_blog_post(blog_post)
+image_generation(prompts)
 # marked_blog_post = mark_spots_for_images(blog_post, prompts)
 
 
