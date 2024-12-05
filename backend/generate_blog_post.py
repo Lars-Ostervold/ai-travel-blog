@@ -101,11 +101,18 @@ def insert_blog_post(title, content):
 
 def upload_image_to_supabase(image_path, image_name):
     with open(image_path, "rb") as image_file:
-        response = supabase.storage.from_("travel-blog-images").upload(image_name, image_file)
-        if response.status_code == 200:
+        try:
+            response = supabase.storage.from_("travel-blog-images").upload(image_name, image_file)
             return f"{supabase_url}/storage/v1/object/public/travel-blog-images/{image_name}"
-        else:
-            raise Exception(f"Failed to upload image: {response.json()}")
+        except Exception as e:
+            print(f"Failed to upload image: {e}")
+
+def store_image_urls(blog_post_id, image_urls):
+    for image_url in image_urls:
+        try:
+            response = supabase.table("blog_images").insert({"blog_post_id": blog_post_id, "image_url": image_url}).execute()
+        except Exception as e:
+            print(f"Failed to store image URL: {e}")
 
 
 def image_generation(prompts):
@@ -195,8 +202,12 @@ def mark_spots_for_images(blog_post, prompts):
 blog_post = r"Lucerne, Switzerland, is a charming city known for its stunning lake views, historical architecture, and picturesque landscapes. Here are some of the best places to visit when exploring this beautiful Swiss destination:\n\n1. **Chapel Bridge (Kapellbrücke)**: This iconic wooden bridge, adorned with beautiful paintings that date back to the 17th century, is one of Lucerne's most recognizable landmarks. Its picturesque setting along the Reuss River makes it a perfect spot for photos.\n2. **Lake Lucerne (Vierwaldstättersee)**: The shimmering waters of Lake Lucerne are surrounded by majestic mountains and offer various activities, such as boat cruises, swimming, and hiking. Taking a scenic boat trip on the lake provides breathtaking views of the surrounding landscapes.\n3. **Lion Monument (Löwendenkmal)**: Carved into a sandstone rock, this poignant monument commemorates the Swiss Guards who were killed during the French Revolution. The sculpture depicts a dying lion and is a symbol of bravery and loyalty, making it a must-see.\n4. **Old Town (Altstadt)**: Stroll through the cobblestone streets of Lucerne’s Old Town, where you’ll find well-preserved medieval buildings, colorful frescoes, and charming shops. Don’t miss the picturesque Weinmarkt square and the beautiful Town Hall (Rathaus).\n5. **Musegg Wall (Museggmauer)**: This ancient fortification, built in the 14th century, provides a glimpse into Lucerne's history. You can walk along parts of the wall and see several of its towers, some of which are open to the public.\n6. **Mt. Pilatus**: Just a short trip from Lucerne, Mt. Pilatus offers spectacular views of the Alps and the surrounding region. You can take the world's steepest cogwheel railway or a gondola lift to reach the peak. Hiking trails in the area are also popular in summer.\n7. **Richard Wagner Museum**: Housed in the villa where composer Richard Wagner lived, this museum showcases his life and works. The location by the lake offers beautiful views, and visitors can learn about Wagner's contributions to music.\n8. **Swiss Museum of Transport**: This unique museum is dedicated to all forms of transportation, featuring exhibits on trains, planes, automobiles, and more. It’s particularly engaging for families, offering interactive displays and historical artifacts.\n9. **Rosengart Collection**: Art enthusiasts will appreciate this private collection, which includes works by renowned artists such as Picasso and Klee. The gallery is housed in a former bank building, adding an extra twist to your visit.\n10. **Weggis and Vitznau**: These charming villages along the shores of Lake Lucerne are perfect for a day trip. Enjoy walks along the waterfront, take in the mountain views, or indulge in a lakeside lunch.\n11. **KKL Luzern (Culture and Congress Centre)**: Designed by the renowned architect Jean Nouvel, this modern architectural marvel hosts concerts, exhibitions, and events. The concert hall features outstanding acoustics, making it a great place to catch a performance.\n\nLucerne is a beautiful blend of historical charm and natural beauty, offering something for every type of traveler. Whether you're interested in cultural experiences, outdoor adventures, or simply enjoying the views, this Swiss city is sure to leave a lasting impression."
 prompts = ["8k photography of a sandstone lion monument, 4k HD DSLR Nikon photography"]
 blog_title = "Lucerne, Switzerland: A Traveler's Guide"
+image_urls = ["https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_0_2.png?t=2024-12-05T15%3A39%3A10.687Z"]
 
-# insert_blog_post("Lucerne, Switzerland: A Traveler's Guide", blog_post)
+
+blog_post_id = insert_blog_post("Lucerne, Switzerland: A Traveler's Guide", blog_post)
+
+store_image_urls(blog_post_id, image_urls)
 
 
 #---Execution--#
@@ -205,7 +216,7 @@ blog_title = "Lucerne, Switzerland: A Traveler's Guide"
 # prompts = generate_image_prompts_from_blog_post(blog_post)
 # marked_blog_post = mark_spots_for_images(blog_post, prompts)
 # blog_post_id = insert_blog_post(blog_title, marked_blog_post)
-#image_urls = image_generation(prompts)
+# image_urls = image_generation(prompts)
 
 
 
