@@ -110,7 +110,7 @@ def upload_image_to_supabase(image_path, image_name):
 def store_image_urls(blog_post_id, image_urls):
     for i, image_url in enumerate(image_urls):
         try:
-            response = supabase.table("blog_images").insert({"blog_post_id": blog_post_id, "image_url": image_url, "image_number": i}).execute()
+            response = supabase.table("blog_images").insert({"blog_post_id": blog_post_id, "image_url": image_url, "image_number": i+1}).execute()
         except Exception as e:
             print(f"Failed to store image URL: {e}")
 
