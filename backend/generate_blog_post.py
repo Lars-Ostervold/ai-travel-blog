@@ -10,6 +10,7 @@ from get_blog_topic import get_blog_topic
 from supabase import create_client, Client
 import requests
 import tempfile
+from github import Github
 
 #Failure email
 import smtplib
@@ -336,6 +337,50 @@ def upsert_blog_post(blog_id: int, content: str) -> None:
     """
     supabase.table("blog_posts").upsert({"id": blog_id, "content": content}).execute()
 
+def upload_blog_post_to_github(content_string: str, token: str, repo_name: str, upload_path: str, branch: str = "main", commit_message: str = "automated commit") -> None:
+    """
+    Uploads a blog post to a GitHub repository. Assumes blog post is markdown format stored in a string.
+
+    Args:
+        token (str): The GitHub token
+        repo_name (str): The name of the repository
+        upload_path (str): The path to upload the file to
+        branch (str): The branch to upload to
+        commit_message (str): The commit message
+        content_string (str): The content of the file
+    
+    Returns:
+        None
+    """
+    # Authenticate with GitHub
+    g = Github(token)
+    repo = g.get_repo(repo_name)
+
+    
+    try:
+        # Check if the file already exists
+        file = repo.get_contents(upload_path, ref=branch)
+
+        # Update the existing file
+        repo.update_file(
+            path=file.path,
+            message=commit_message,
+            content=content_string,
+            sha=file.sha,
+            branch=branch
+        )
+        print(f"Updated file at {upload_path}")
+    except:
+        print(f"path not found: {upload_path}")
+        # Create a new file
+        repo.create_file(
+            path=upload_path,
+            message=commit_message,
+            content=content_string,
+            branch=branch
+        )
+        print(f"Created new file at {upload_path}")
+
 
 # ---Execution--#
 print("Generating blog post...")
@@ -357,6 +402,16 @@ final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls)
 print("Storing final blog post...")
 upsert_blog_post(blog_post_id, final_blog_post)
 print("Blog post generation complete!")
-#Save final blog post to file
-with open("blog_post.md", "w") as f:
-    f.write(final_blog_post)
+
+#GitHub Upload variables
+GITHUB_TOKEN: str = os.environ.get("GITHUB_TOKEN")
+REPO_NAME: str = "Lars-Ostervold/ai-travel-blog"
+UPLOAD_PATH: str = f"frontend/_posts/{blog_post_id}_blog.md"
+# UPLOAD_PATH: str = f"frontend/_posts/dynamic-routing2.md"
+BRANCH: str = "main"
+COMMIT_MESSAGE: str = f"Automated commit: Uploaded new blog post number {blog_post_id}"
+CONTENT_STRING: str = final_blog_post
+
+
+upload_blog_post_to_github(CONTENT_STRING, GITHUB_TOKEN, REPO_NAME, UPLOAD_PATH, BRANCH, COMMIT_MESSAGE, )
+print("Blog post uploaded to GitHub!")
