@@ -357,3 +357,6 @@ final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls)
 print("Storing final blog post...")
 upsert_blog_post(blog_post_id, final_blog_post)
 print("Blog post generation complete!")
+#Save final blog post to file
+with open("blog_post.md", "w") as f:
+    f.write(final_blog_post)
