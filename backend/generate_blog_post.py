@@ -72,8 +72,23 @@ def text_generation() -> str:
     """
     destination = get_blog_topic()
 
-    chatbot_role_prompt = f"You are a travel blogger writing about the best places to visit in {destination}."
-    chatbot_user_prompt = f"What are some of the best places to visit in {destination}?"
+    chatbot_role_prompt = f"You are a fun-loving, adventurous girl in your 20s with a young family - a husband (Noah) in his 20s, and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
+    chatbot_user_prompt = f"""
+    Write a SEO-optimized blog post about your recent trip to {destination}. 
+    Share your experiences, the challenges you faced, and the highlights of your trip. Include tips and advice for other young families who are planning a similar trip. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones.
+    Be sure to include personal anecdotes, helpful tips for travelers, and some humor. 
+    To the best of your knowledge, be specific about the location and accurate. Do not include any information that is not true or that you are unsure of.
+    
+    Here are some questions to consider:
+
+    What were the highlights of your trip?
+    What were some of the challenges you faced?
+    What are your top recommendations for things to see and do?
+    What are some tips for traveling to [Destination] with kids?
+    What are some budget-friendly activities and attractions?
+    What are some must-try local foods?
+    What are some cultural customs or etiquette tips to keep in mind?
+    """
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -96,8 +111,8 @@ def generate_blog_title(blog_post: str) -> str:
     Returns:
         str: The generated blog title
     """
-    chatbot_role_prompt = f"You are a clever, witty writer whose job is to come up with catchy titles for travel blog posts."
-    chatbot_user_prompt = f"Generate a catchy title for the blog post below: \n \n {blog_post}"
+    chatbot_role_prompt = f"You are a clever, witty writer whose job is to come up with catchy titles for travel blog posts. You prioritize SEO."
+    chatbot_user_prompt = f"Generate an catchy title that is SEO for the blog post below: \n \n {blog_post}"
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
