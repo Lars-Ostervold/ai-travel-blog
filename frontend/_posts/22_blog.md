@@ -1,7 +1,6 @@
 ---
     title: "Victoria Falls: Where Adventure Meets Awe—The Ultimate Guide to Nature's Masterpiece!"
-    excerpt: "
-Victoria Falls, one of the most awe-inspiring natural wonders in the world, straddles the border between Zimbabwe and Zambia. This stunning destination offers a variety of attractions and activities "
+    excerpt: "Victoria Falls, one of the most awe-inspiring natural wonders in the world, straddles the border between Zimbabwe and Zambia. This stunning destination offers a variety of attractions and activities f"
     coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_22_0.png?t=2024-12-12T01%3A37%3A47.579Z"
     date: "current date and time"
     author:
@@ -12,7 +11,6 @@ Victoria Falls, one of the most awe-inspiring natural wonders in the world, stra
     blogPostID: "22"
     ---
     
-
 
 Victoria Falls, one of the most awe-inspiring natural wonders in the world, straddles the border between Zimbabwe and Zambia. This stunning destination offers a variety of attractions and activities for all types of travelers. Here are some of the best places to visit and experiences to enjoy in Victoria Falls:
 
