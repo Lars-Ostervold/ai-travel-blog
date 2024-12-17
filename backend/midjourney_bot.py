@@ -103,6 +103,10 @@ class MidjourneyApi():
             print(response.json())
 
     def find_upgrade_button(self):
+        headers = {
+            'Authorization': self.self_authorization,
+            "Content-Type": "application/json",
+        }
         for i in range(3):
             time.sleep(30)
             try:
