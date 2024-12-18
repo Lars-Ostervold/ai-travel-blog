@@ -25,6 +25,16 @@ supabase_url: str = os.environ.get("SUPABASE_URL")
 key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(supabase_url, key)
 
+#Midjourney API
+from midjourney_bot import MidjourneyApi
+application_id = os.getenv("DISCORD_APPLICATION_ID")
+guild_id = os.getenv("DISCORD_GUILD_ID")
+channel_id = os.getenv("DISCORD_CHANNEL_ID")
+version = os.getenv("DISCORD_VERSION")
+id = os.getenv("DISCORD_ID")
+authorization = os.getenv("DISCORD_BOT_TOKEN")
+self_authorization = os.getenv("DISCORD_AUTHORIZATION_TOKEN")
+
 
 def send_failure_email(prompt: str) -> None:
     """
@@ -135,8 +145,22 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     Returns:
         List[str]: List of generated image prompts
     """
-    chatbot_role_prompt = f"You are an expert prompt engineer that generates prompts for DALLE that will generate images for travel blogs. Every image you generate must be relevant to the blog post and should look like a high quality photograph."
-    chatbot_user_prompt = f"Generate only 4 image prompts relevant to this blog post below \n \n {blog_post}. Try to focus on unique details from the post so each image is of a different topic. Prompt should begin with 'Photograph of', and end by specifying things like the camera model, aperture, shutter speed, ISO, camera mode, focus mode, white balance, and metering mode. An example is 'fast motion, sunlight, shot with 4k HD DSLR Nikon photography' Separate each prompt with a new line. Individual prompts should be no more than 50 words. DO NOT GENERATE MORE THAN 4 PROMPTS"
+    chatbot_role_prompt = f"""You are an expert visual artist and professional photographer with a keen eye for detail and composition. Your task is to create detailed, vivid image prompts that could be used by AI image generators to produce photorealistic images. When crafting these prompts, follow these guidelines:
+        Begin with a clear, concise description of the main subject.
+        Specify the type of shot (e.g., close-up, wide-angle, aerial) and perspective.
+        Describe the lighting conditions in detail, including direction, quality, and color temperature.
+        Include information about the setting or background, providing context and depth.
+        Mention specific textures, materials, and colors where relevant.
+        Incorporate details about facial expressions, poses, or actions for human or animal subjects.
+        Reference photographic techniques like depth of field, focus points, or motion blur when appropriate.
+        Suggest camera settings (e.g., lens type, aperture) to achieve the desired effect.
+        Include atmospheric elements like weather conditions or time of day.
+        Aim for a length of 3-5 sentences to provide sufficient detail without becoming overly complex.
+        Remember to balance technical precision with creative vision, ensuring that each prompt could realistically result in a compelling, lifelike photograph. Your goal is to create prompts that challenge and showcase the capabilities of advanced AI image generation systems."
+
+        A good example of a prompt is: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
+        """    
+    chatbot_user_prompt = f"Generate only 4 image prompts relevant to this blog post below. Try to space out the images throughout the post. \n \n {blog_post}. Try to focus on unique details from the post so each image is of a different topic. Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS"
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -226,28 +250,17 @@ def image_generation(prompts: List[str], blog_title: str, blog_post: str, blog_p
             # Sometimes the prompt gets flagged as 'inappropriate', so we catch this in a loop and give a few tries
             for image_attempt in range(max_attempts):
                 try:
-                    response = client.images.generate(
-                        model="dall-e-3",
-                        prompt=prompt,
-                        size="1792x1024",
-                        quality="hd",
-                        style="vivid",
-                        n=1,
-                    )
-                    image_url = response.data[0].url
+                    midjourney_photo = MidjourneyApi(prompt, application_id, guild_id, channel_id, version, id, self_authorization)
+ 
+                    #store in temp file
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
+                        temp_file.write(midjourney_photo)
+                        temp_file_path = temp_file.name
                     
-                    # Save the image to Supabase
-                    image_response = requests.get(image_url)
-                    if image_response.status_code == 200:
-                        #store in temp file
-                        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
-                            temp_file.write(image_response.content)
-                            temp_file_path = temp_file.name
-                        
-                        # Upload to Supabase
-                        image_name = f"image_{blog_post_id}_{index}.png"
-                        supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
-                        image_urls.append(supabase_image_url)
+                    # Upload to Supabase
+                    image_name = f"image_{blog_post_id}_{index}.png"
+                    supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
+                    image_urls.append(supabase_image_url)
 
                     success = True
                     break #If reaches this point, we successfully uploaded the image so we can break out of the loop
