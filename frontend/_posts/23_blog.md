@@ -1,5 +1,5 @@
 ---
-title: ""Sintra: A Whimsical Journey Through Portugal's Fairytale Landscape""
+title: "Sintra: A Whimsical Journey Through Portugal's Fairytale Landscape"
 excerpt: "Sintra, Portugal, is a fairytale destination known for its stunning architecture, beautiful landscapes, and rich history. Here are some of the best places to visit while exploring this enchanting town"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_23_0.png"
 date: "2024-12-12T16:38:40.310Z"

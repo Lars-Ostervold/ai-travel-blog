@@ -1,5 +1,5 @@
 ---
-title: ""Key West Family Fun: Unforgettable Adventures, Tips & Snacks for Traveling with Kids""
+title: "Key West Family Fun: Unforgettable Adventures, Tips & Snacks for Traveling with Kids"
 excerpt: "# Our Family Adventure in Key West: Sun, Sand, and Sparkles (Oh My!)
 
 Key West, Florida – the land of sunshine, palm trees, and cocktails served in coconuts. When Noah and I decided to take our little"
