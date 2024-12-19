@@ -12,6 +12,7 @@ import requests
 import tempfile
 from datetime import datetime, timezone
 from github import Github
+import time
 
 #Failure email
 import smtplib
@@ -60,11 +61,11 @@ def send_failure_email(prompt: str) -> None:
     password = os.getenv("EMAIL_PASSWORD")
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "DALL-E Image Generation Failure"
+    message["Subject"] = "Tralel Blog Image Generation Failure"
     message["From"] = sender_email
     message["To"] = receiver_email
 
-    text = f"The following prompt failed 5 times: {prompt}"
+    text = f"The following prompt failed: {prompt}"
     part = MIMEText(text, "plain")
     message.attach(part)
 
@@ -82,7 +83,7 @@ def text_generation() -> str:
     """
     destination = get_blog_topic()
 
-    chatbot_role_prompt = f"You are a fun-loving, adventurous girl in your 20s with a young family - a husband (Noah) in his 20s, and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
+    chatbot_role_prompt = f"You are a fun-loving, adventurous girl (named Audrey Rose) in your 20s with a young family - a husband (Noah) in his 20s, and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
     chatbot_user_prompt = f"""
     Write a SEO-optimized blog post about your recent trip to {destination}. 
     Share your experiences, the challenges you faced, and the highlights of your trip. Include tips and advice for other young families who are planning a similar trip. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones.
@@ -146,22 +147,56 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
         List[str]: List of generated image prompts
     """
     chatbot_role_prompt = f"""You are an expert visual artist and professional photographer with a keen eye for detail and composition. Your task is to create detailed, vivid image prompts that could be used by AI image generators to produce photorealistic images. When crafting these prompts, follow these guidelines:
-        Begin with a clear, concise description of the main subject.
+        Begin with a clear, concise description of the main subject.  
         Specify the type of shot (e.g., close-up, wide-angle, aerial) and perspective.
         Describe the lighting conditions in detail, including direction, quality, and color temperature.
         Include information about the setting or background, providing context and depth.
         Mention specific textures, materials, and colors where relevant.
-        Incorporate details about facial expressions, poses, or actions for human or animal subjects.
         Reference photographic techniques like depth of field, focus points, or motion blur when appropriate.
         Suggest camera settings (e.g., lens type, aperture) to achieve the desired effect.
-        Include atmospheric elements like weather conditions or time of day.
-        Aim for a length of 3-5 sentences to provide sufficient detail without becoming overly complex.
-        Remember to balance technical precision with creative vision, ensuring that each prompt could realistically result in a compelling, lifelike photograph. Your goal is to create prompts that challenge and showcase the capabilities of advanced AI image generation systems."
+        Include atmospheric elements like weather conditions or time of day.   
 
         A good example of a prompt is: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
         """    
-    chatbot_user_prompt = f"Generate only 4 image prompts relevant to this blog post below. Try to space out the images throughout the post. \n \n {blog_post}. Try to focus on unique details from the post so each image is of a different topic. Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS"
+    chatbot_user_prompt = f"""
+    Generate only 4 image prompts relevant to this blog post below. Try to space out the images throughout the post. Try to focus on unique details from the post so each image is of a different topic. 
+    Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS
+    Only one image prompt should be of the main characters in the blog post.
+    
+    
+    When generating images of the main characters, use these details in your prompts:
 
+    Audrey (the narrator):
+        Hair: Long, light brown with soft waves, often tied back in a casual ponytail or messy bun.
+        Eyes: Warm hazel with a hint of green.
+        Skin: Fair with a light tan from outdoor adventures.
+        Build: Medium height, fit but with a relaxed, approachable appearance.
+        Style: Practical yet stylish, often wearing flowy tops, comfortable jeans, and sneakers.
+    
+    Noah (husband):
+        Hair: Short, dark brown, slightly tousled.
+        Eyes: Deep blue, kind and expressive.
+        Skin: Light olive complexion with a touch of sun-kissed glow.
+        Build: Tall and lean, with broad shoulders and an athletic frame.
+        Style: Casual, often seen in neutral-colored T-shirts, cargo shorts, and hiking boots.
+
+    Max (5-year-old male):
+        Hair: Sandy blond, slightly messy and windswept.
+        Eyes: Bright blue, full of curiosity and mischief.
+        Skin: Fair with a few light freckles across his nose.
+        Build: Small and energetic, always on the move.
+        Style: Bright-colored T-shirts with fun graphics, shorts, and sporty sneakers.
+
+    Leo (2-year-old male toddler):
+        Hair: Light brown, soft and slightly curly.
+        Eyes: Big and brown, with a curious, innocent expression.
+        Skin: Rosy cheeks and a fair complexion.
+        Build: Chubby-cheeked toddler with a sturdy little frame.
+        Style: Overalls or comfy rompers, often in earthy tones or playful patterns.
+    
+    \n \n {blog_post}. 
+    "
+    """
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
@@ -227,9 +262,9 @@ def store_image_urls(blog_post_id: int, image_urls: List[str]) -> None:
             print(f"Failed to store image URL: {e}")
 
 
-def image_generation(prompts: List[str], blog_title: str, blog_post: str, blog_post_id: int) -> List[str]:
+def generate_and_store_images(prompts: List[str], blog_title: str, marked_blog_post: str, blog_post_id: int) -> List[str]:
     """
-    Generates images based on the prompts
+    Generates images and uploads to Supabase storage based on the prompts
 
     Args:
         prompts (List[str]): List of image prompts
@@ -240,38 +275,33 @@ def image_generation(prompts: List[str], blog_title: str, blog_post: str, blog_p
     Returns:
         List[str]: List of generated image URLs
     """
-    max_attempts = 5
-
     try:
         image_urls = []
         for index, prompt in enumerate(prompts):
-            success = False
 
-            # Sometimes the prompt gets flagged as 'inappropriate', so we catch this in a loop and give a few tries
-            for image_attempt in range(max_attempts):
-                try:
-                    midjourney_photo = MidjourneyApi(prompt, application_id, guild_id, channel_id, version, id, self_authorization)
- 
-                    #store in temp file
-                    with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
-                        temp_file.write(midjourney_photo)
-                        temp_file_path = temp_file.name
-                    
-                    # Upload to Supabase
-                    image_name = f"image_{blog_post_id}_{index}.png"
-                    supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
-                    image_urls.append(supabase_image_url)
+            midjourney = MidjourneyApi(prompt, application_id, guild_id, channel_id, version, id, self_authorization)
+            midjourney.send_imagine_prompt()
+            midjourney.find_upgrade_button()
+            midjourney.upgrade_image()
+            midjourney_photo = midjourney.download_image()
 
-                    success = True
-                    break #If reaches this point, we successfully uploaded the image so we can break out of the loop
-                except Exception as e:
-                    print(f"Image generation attempt {image_attempt + 1} failed: {e}. Resubmitting prompt.")
-            if not success:
-                raise Exception(f"Failed to generate image for prompt: {prompt}")
+            #store in temp file
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
+                temp_file.write(midjourney_photo)
+                temp_file_path = temp_file.name
+            
+            # Upload to Supabase
+            image_name = f"image_{blog_post_id}_{index}.png"
+            supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
+            image_urls.append(supabase_image_url)
+
+            # #The second API request doesn't show up if we send too fast.
+            # print("Waiting before submitting new API request.")
+            # time.sleep(300)
         return image_urls
     except Exception as e:
         print(f"Prompt generation failed: {e}")
-        failure_email_content = f"The following prompt failed 5 times: \n\n TILE: {blog_title} \n\n POST: \n {blog_post}\n\nPrompts: {prompts}"
+        failure_email_content = f"The following prompt failed: \n\n TILE: {blog_title} \n\n POST: \n {marked_blog_post}\n\nPrompts: {prompts}"
         send_failure_email(failure_email_content)
         raise
 
@@ -419,6 +449,15 @@ def get_current_datetime_iso8601():
     
     return formatted_datetime
 
+def get_specific_datetime_iso8601(year: int, month: int, day: int) -> str:
+    # Create a specific date and time in UTC
+    specific_datetime = datetime(year, month, day, tzinfo=timezone.utc)
+    
+    # Format the date and time as an ISO 8601 string with milliseconds
+    formatted_datetime = specific_datetime.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+    
+    return formatted_datetime
+
 def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://i.pravatar.cc/100") -> str:
     """
     Adds metadata to the blog post
@@ -466,7 +505,7 @@ print("Uploaded blog post to Supabase...")
 blog_post_id = insert_blog_post(blog_title, marked_blog_post)
 
 print("Generating images...")
-image_urls = image_generation(prompts, blog_title, blog_post, blog_post_id)
+image_urls = generate_and_store_images(prompts, blog_title, marked_blog_post, blog_post_id)
 
 print("Storing image URLs...")
 store_image_urls(blog_post_id, image_urls)
