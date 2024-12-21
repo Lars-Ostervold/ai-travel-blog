@@ -150,7 +150,7 @@ def generate_blog_title(blog_post: str) -> str:
             {"role": "user", "content": chatbot_user_prompt},
         ]
     )
-    print(f"Blog title before cleaning: {completion.choices[0].message.content}")
+
     # Remove any leading or trailing special characters from the title. Characters include #, *, and other non-alphanumeric characters
     title = completion.choices[0].message.content
     title = clean_lead_and_trail_special_characters(title)
@@ -504,52 +504,51 @@ blog_post = text_generation()
 
 print("Generating blog title...")
 blog_title = generate_blog_title(blog_post)
-print(blog_title)
 
-# print("replacing apostrophes...")
-# blog_post = blog_post.replace("’", "'")
-# blog_title = blog_title.replace("’", "'")
+print("replacing apostrophes...")
+blog_post = blog_post.replace("’", "'")
+blog_title = blog_title.replace("’", "'")
 
-# print("Generating image prompts...")
-# prompts = generate_image_prompts_from_blog_post(blog_post)
+print("Generating image prompts...")
+prompts = generate_image_prompts_from_blog_post(blog_post)
 
-# print("Marking spots for images...")
-# marked_blog_post = mark_spots_for_images(blog_post, prompts)
+print("Marking spots for images...")
+marked_blog_post = mark_spots_for_images(blog_post, prompts)
 
-# print("Uploaded blog post to Supabase...")
-# blog_post_id = insert_blog_post(blog_title, marked_blog_post)
+print("Uploaded blog post to Supabase...")
+blog_post_id = insert_blog_post(blog_title, marked_blog_post)
 
-# print("Generating images...")
-# image_urls = generate_and_store_images(prompts, blog_title, marked_blog_post, blog_post_id)
+print("Generating images...")
+image_urls = generate_and_store_images(prompts, blog_title, marked_blog_post, blog_post_id)
 
-# print("Storing image URLs...")
-# store_image_urls(blog_post_id, image_urls)
+print("Storing image URLs...")
+store_image_urls(blog_post_id, image_urls)
 
-# print("Replacing image tags with URLs...")
-# final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls)
+print("Replacing image tags with URLs...")
+final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls)
 
-# print("Adding metadata to blog post...")
-# blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id)
+print("Adding metadata to blog post...")
+blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id)
 
-# #Sometimes the LLM puts "BLOG_POST:" at the beginning
-# if "BLOG_POST:" in blog_post_plus_metadata:
-#     blog_post_plus_metadata = blog_post_plus_metadata.replace("BLOG_POST:", "")
+#Sometimes the LLM puts "BLOG_POST:" at the beginning
+if "BLOG_POST:" in blog_post_plus_metadata:
+    blog_post_plus_metadata = blog_post_plus_metadata.replace("BLOG_POST:", "")
 
-# print("Storing final blog post...")
-# upsert_blog_post(blog_post_id, blog_post_plus_metadata)
+print("Storing final blog post...")
+upsert_blog_post(blog_post_id, blog_post_plus_metadata)
 
-# print("Blog post generation complete!")
-
-
-# print("Uploading blog post to GitHub...")
-# #GitHub Upload variables
-# GITHUB_TOKEN: str = os.environ.get("GITHUB_TOKEN")
-# REPO_NAME: str = "Lars-Ostervold/ai-travel-blog"
-# UPLOAD_PATH: str = f"frontend/_posts/{blog_post_id}_blog.md"
-# BRANCH: str = "main"
-# COMMIT_MESSAGE: str = f"Automated commit: Uploaded new blog post number {blog_post_id}"
-# CONTENT_STRING: str = blog_post_plus_metadata
+print("Blog post generation complete!")
 
 
-# upload_blog_post_to_github(CONTENT_STRING, GITHUB_TOKEN, REPO_NAME, UPLOAD_PATH, BRANCH, COMMIT_MESSAGE, )
-# print("Blog post uploaded to GitHub!")
+print("Uploading blog post to GitHub...")
+#GitHub Upload variables
+GITHUB_TOKEN: str = os.environ.get("GITHUB_TOKEN")
+REPO_NAME: str = "Lars-Ostervold/ai-travel-blog"
+UPLOAD_PATH: str = f"frontend/_posts/{blog_post_id}_blog.md"
+BRANCH: str = "main"
+COMMIT_MESSAGE: str = f"Automated commit: Uploaded new blog post number {blog_post_id}"
+CONTENT_STRING: str = blog_post_plus_metadata
+
+
+upload_blog_post_to_github(CONTENT_STRING, GITHUB_TOKEN, REPO_NAME, UPLOAD_PATH, BRANCH, COMMIT_MESSAGE, )
+print("Blog post uploaded to GitHub!")
