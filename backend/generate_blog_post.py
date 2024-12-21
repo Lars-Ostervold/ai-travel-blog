@@ -62,7 +62,7 @@ def send_failure_email(prompt: str) -> None:
     password = os.getenv("EMAIL_PASSWORD")
 
     message = MIMEMultipart("alternative")
-    message["Subject"] = "Tralel Blog Image Generation Failure"
+    message["Subject"] = "Travel Blog Image Generation Failure"
     message["From"] = sender_email
     message["To"] = receiver_email
 
@@ -86,7 +86,7 @@ def text_generation() -> str:
 
     chatbot_role_prompt = f"You are a fun-loving, adventurous girl (named Audrey, aged 30) with a young family - a husband (Noah, aged 31) and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
     chatbot_user_prompt = f"""
-    Write a SEO-optimized blog post about your recent trip to {destination}. 
+    Write a SEO-optimized blog post about your recent trip to {destination}. The title should be h2 (##) and subtitles are h3 (###). 
     Share your experiences, the challenges you faced, and the highlights of your trip. Include tips and advice for other young families who are planning a similar trip. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones.
     Be sure to include personal anecdotes, helpful tips for travelers, and some humor. 
     To the best of your knowledge, be specific about the location and accurate. Do not include any information that is not true or that you are unsure of.
