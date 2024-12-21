@@ -7,7 +7,7 @@ coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/t
 date: "2024-12-19T19:31:35.011Z"
 author:
     name: "Audrey Rose"
-    picture: "https://i.pravatar.cc/100"
+    picture: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z"
 ogImage:
     url: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_25_0.png"
 blogPostID: "25"

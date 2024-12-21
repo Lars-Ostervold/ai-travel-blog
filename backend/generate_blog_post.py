@@ -496,7 +496,7 @@ def get_clean_excerpt(blog_post: str) -> str:
     return cleaned_excerpt[:last_period + 1]
 
 
-def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://i.pravatar.cc/100") -> str:
+def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z") -> str:
     """
     Adds metadata to the blog post
 
