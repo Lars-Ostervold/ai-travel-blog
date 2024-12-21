@@ -1,8 +1,8 @@
 ---
-title: "**"Soak Up Family Fun: Your Ultimate Guide to Hot Springs National Park Adventures!"**"
-excerpt: "**Unwinding in Hot Springs National Park: A Family Adventure Worth Soaking Up!**
+title: "Soak Up Family Fun: Your Ultimate Guide to Hot Springs National Park Adventures!"
+excerpt: "Unwinding in Hot Springs National Park: A Family Adventure Worth Soaking Up!
 
-Hey there, fellow adventurers! It's your girl Audrey again, and today I'm thrilled to share our recent escapade to Hot"
+Hey there, fellow adventurers! It's your girl Audrey again, and today I'm thrilled to share our recent escapade to Hot Springs!"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_27_0.png"
 date: "2024-12-21T12:58:21.754Z"
 author:
