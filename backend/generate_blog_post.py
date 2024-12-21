@@ -83,7 +83,7 @@ def text_generation() -> str:
     """
     destination = get_blog_topic()
 
-    chatbot_role_prompt = f"You are a fun-loving, adventurous girl (named Audrey Rose) in your 20s with a young family - a husband (Noah) in his 20s, and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
+    chatbot_role_prompt = f"You are a fun-loving, adventurous girl (named Audrey, aged 30) with a young family - a husband (Noah, aged 31) and two boys aged 2 (Leo) and 5 (Max). You love to travel and share your experiences with others. Your writing style is engaging, humorous, and informative. You're not afraid to be honest about the challenges of traveling with kids, but you always find the silver lining. You're passionate about helping others have amazing travel experiences, and you're always willing to share tips and advice. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones."
     chatbot_user_prompt = f"""
     Write a SEO-optimized blog post about your recent trip to {destination}. 
     Share your experiences, the challenges you faced, and the highlights of your trip. Include tips and advice for other young families who are planning a similar trip. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones.
@@ -156,44 +156,19 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
         Suggest camera settings (e.g., lens type, aperture) to achieve the desired effect.
         Include atmospheric elements like weather conditions or time of day.   
 
-        A good example of a prompt is: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
+        A good example of a prompt follows. Feel free to adjust the style as necessary.: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
         """    
     chatbot_user_prompt = f"""
-    Generate only 4 image prompts relevant to this blog post below. Try to space out the images throughout the post. Try to focus on unique details from the post so each image is of a different topic. 
+    Generate only 4 image prompts for Midjourney, relevant to this blog post below. Try to space out the images throughout the post. Try to focus on unique details from the post so each image is of a different topic. 
     Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS
-    Only one image prompt should be of the main characters in the blog post.
-    
-    
-    When generating images of the main characters, use these details in your prompts:
+    Mix prompts between the main characters and the setting.
 
-    Audrey (the narrator):
-        Hair: Long, light brown with soft waves, often tied back in a casual ponytail or messy bun.
-        Eyes: Warm hazel with a hint of green.
-        Skin: Fair with a light tan from outdoor adventures.
-        Build: Medium height, fit but with a relaxed, approachable appearance.
-        Style: Practical yet stylish, often wearing flowy tops, comfortable jeans, and sneakers.
-    
-    Noah (husband):
-        Hair: Short, dark brown, slightly tousled.
-        Eyes: Deep blue, kind and expressive.
-        Skin: Light olive complexion with a touch of sun-kissed glow.
-        Build: Tall and lean, with broad shoulders and an athletic frame.
-        Style: Casual, often seen in neutral-colored T-shirts, cargo shorts, and hiking boots.
+    Special instructions when generating images of the main characters:
+    - Never include more than two characters in a single image.
+    - Start the prompt with the number of people in the photo (e.g., "A photo of two people, a mother and her son,")
+    - Include the ages and names of each character (e.g., "Audrey (a woman in her 30s)"). Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
+    - Include relative positions of the characters (e.g., "A mother on the left holding a toddler, a father on the right")
 
-    Max (5-year-old male):
-        Hair: Sandy blond, slightly messy and windswept.
-        Eyes: Bright blue, full of curiosity and mischief.
-        Skin: Fair with a few light freckles across his nose.
-        Build: Small and energetic, always on the move.
-        Style: Bright-colored T-shirts with fun graphics, shorts, and sporty sneakers.
-
-    Leo (2-year-old male toddler):
-        Hair: Light brown, soft and slightly curly.
-        Eyes: Big and brown, with a curious, innocent expression.
-        Skin: Rosy cheeks and a fair complexion.
-        Build: Chubby-cheeked toddler with a sturdy little frame.
-        Style: Overalls or comfy rompers, often in earthy tones or playful patterns.
-    
     \n \n {blog_post}. 
     "
     """
@@ -207,7 +182,27 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
 
     # We asked GPT to separate the prompts with a new line, so we split the response by new lines
     prompts = completion.choices[0].message.content.split("\n")
-    return [prompt.strip() for prompt in prompts if prompt.strip()]
+
+    #Strip any empty prompts
+    prompts = [prompt.strip() for prompt in prompts if prompt.strip()]
+
+    #Add character references and aspect ratio to the prompts
+    modified_prompts = []
+    for prompt in prompts:
+        #aspect ratio
+        prompt += " --ar 3:2 --q 2"
+        if "AUDREY" in prompt.upper() or "NOAH" in prompt.upper() or "MAX" in prompt.upper() or "LEO" in prompt.upper():
+            prompt += " --cref "
+        if "AUDREY" in prompt.upper():
+            prompt += "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar.png?t=2024-12-20T13%3A20%3A50.930Z "
+        if "NOAH" in prompt.upper():
+            prompt += "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/noah_avatar.png?t=2024-12-20T13%3A21%3A12.678Z "
+        if "MAX" in prompt.upper():
+            prompt += "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/max_avatar.png?t=2024-12-20T13%3A21%3A06.428Z "
+        if "LEO" in prompt.upper():
+            prompt += "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/leo_avatar.png?t=2024-12-20T13%3A20%3A59.162Z "
+        modified_prompts.append(prompt.strip())
+    return [prompt for prompt in modified_prompts if prompt]
 
 
 def insert_blog_post(title: str, content: str) -> int:
@@ -295,9 +290,6 @@ def generate_and_store_images(prompts: List[str], blog_title: str, marked_blog_p
             supabase_image_url = upload_image_to_supabase(temp_file_path, image_name)
             image_urls.append(supabase_image_url)
 
-            # #The second API request doesn't show up if we send too fast.
-            # print("Waiting before submitting new API request.")
-            # time.sleep(300)
         return image_urls
     except Exception as e:
         print(f"Prompt generation failed: {e}")
