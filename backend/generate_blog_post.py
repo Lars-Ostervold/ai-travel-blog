@@ -472,6 +472,30 @@ def get_specific_datetime_iso8601(year: int, month: int, day: int) -> str:
     
     return formatted_datetime
 
+def get_clean_excerpt(blog_post: str) -> str:
+    """
+    Gets a clean excerpt from a blog post. The excerpt is the first 200 characters of the blog post.
+    However, we want to remove any leading or trailing characters and end at the end of a sentence.
+
+    Args:
+        blog_post (str): The blog post content
+
+    Returns:
+        str: The excerpt of the blog post
+    """
+    # Get the first 200 characters of the blog post
+    excerpt = blog_post[:200]
+
+    # Remove any leading or trailing special characters
+    cleaned_excerpt = clean_lead_and_trail_special_characters(excerpt)
+
+    # Find the last period in the excerpt
+    last_period = cleaned_excerpt.rfind(".")
+
+    # Return the excerpt up to the last period, including the period
+    return cleaned_excerpt[:last_period + 1]
+
+
 def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://i.pravatar.cc/100") -> str:
     """
     Adds metadata to the blog post
@@ -484,7 +508,7 @@ def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[
     """
     metadata = f"""---
 title: "{blog_title}"
-excerpt: "{blog_post[:200]}"
+excerpt: "{get_clean_excerpt(blog_post)}"
 coverImage: "{image_urls[0]}"
 date: "{date_time}"
 author:
