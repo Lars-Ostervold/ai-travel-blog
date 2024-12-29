@@ -1,5 +1,5 @@
 # Frontend for AI Travel Blog
-**Good portions of the description use content from the template README**
+**Portions of this README are copied from the Next.js [template](https://github.com/vercel/next.js/tree/canary/examples/blog-starter)**
 
 Frontend uses a [template](https://github.com/vercel/next.js/tree/canary/examples/blog-starter) from Next.js, built with Typescript.
 
