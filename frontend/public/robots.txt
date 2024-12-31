@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.chasingmemories.com
+
+# Sitemaps
+Sitemap: https://www.chasingmemories.com/sitemap.xml
