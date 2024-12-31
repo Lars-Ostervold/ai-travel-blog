@@ -522,8 +522,41 @@ def get_clean_excerpt(blog_post: str) -> str:
     # Return the excerpt up to the last period, including the period
     return cleaned_excerpt[:last_period + 1]
 
+def generate_keywords_from_blog_post(blog_post: str) -> str:
+    """
+    Generates keywords from a blog post using ChatGPT
 
-def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z") -> str:
+    Args:
+        blog_post (str): The blog post content
+
+    Returns:
+        str: Comma-separated list of keywords. Appropriate format for meta keywords.
+    """
+    chatbot_role_prompt = f"""You are an SEO expert tasked with generating keywords for a travel blog post. Your goal is to identify the most relevant and high-impact keywords that will help the blog post rank well in search engine results. 
+    When generating keywords, consider the following guidelines:
+    - Focus on long-tail keywords that are specific to the content of the blog post.
+    - Include a mix of informational, navigational, and transactional keywords.
+    - Use synonyms and related terms to capture a broad range of search queries.
+    - Consider the target audience and their search intent.
+    - Aim for a balance of high-volume and low-competition keywords.
+    - Avoid keyword stuffing and prioritize natural language.
+    """
+    chatbot_user_prompt = f"""
+    Generate keywords for the blog post below. The keywords should be relevant to the content and help improve the SEO of the post. 
+    Respond with only the keywords, separated by commas and no period at the end. The format should be appropriate to use as meta keywords.
+    \n \n {blog_post}
+    """
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": chatbot_role_prompt},
+            {"role": "user", "content": chatbot_user_prompt},
+        ]
+    )
+
+    return completion.choices[0].message.content
+
+def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, keywords: str, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z") -> str:
     """
     Adds metadata to the blog post
 
@@ -536,6 +569,7 @@ def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[
     metadata = f"""---
 title: "{blog_title}"
 excerpt: "{get_clean_excerpt(blog_post)}"
+keywords: "{keywords}"
 coverImage: "{image_urls[0]}"
 date: "{date_time}"
 author:
@@ -581,8 +615,11 @@ store_image_urls(blog_post_id, image_urls, alt_texts)
 print("Replacing image tags with URLs...")
 final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls, alt_texts)
 
+print("Generating keywords from blog post...")
+keywords = generate_keywords_from_blog_post(blog_post)
+
 print("Adding metadata to blog post...")
-blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id)
+blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id, keywords)
 
 #Sometimes the LLM puts "BLOG_POST:" at the beginning
 if "BLOG_POST:" in blog_post_plus_metadata:
