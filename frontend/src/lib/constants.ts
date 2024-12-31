@@ -1,5 +1,4 @@
 export const EXAMPLE_PATH = "blog-starter";
 export const CMS_NAME = "Markdown";
-export const HOME_OG_IMAGE_URL =
-  "https://og-image.vercel.app/Next.js%20Blog%20Starter%20Example.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg";
+export const HOME_OG_IMAGE_URL = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/chasing_memories_graph_image.png?t=2024-12-21T15%3A13%3A47.511Z";
 export const BLOG_TITLE = "Chasing Memories: A Family Travel Blog";
