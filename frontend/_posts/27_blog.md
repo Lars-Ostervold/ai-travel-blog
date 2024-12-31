@@ -3,6 +3,7 @@ title: "Soak Up Family Fun: Your Ultimate Guide to Hot Springs National Park Adv
 excerpt: "Unwinding in Hot Springs National Park: A Family Adventure Worth Soaking Up!
 
 Hey there, fellow adventurers! It's your girl Audrey again, and today I'm thrilled to share our recent escapade to Hot Springs!"
+keywords: "hot springs national park family adventure, hot springs arkansas travel tips, bathhouse row hot springs, grand promenade hot springs national park, hot springs mountain tower hike, family-friendly hiking trails Arkansas, Fordyce Bathhouse Visitor Center, best local food hot springs arkansas, Arkansas-style BBQ, family travel blog hot springs, tips for traveling with toddlers, budget-friendly activities hot springs, local attractions hot springs Arkansas, southern hospitality travel tips, spring and fall travel hot springs, kids-friendly hiking trails Arkansas, chocolate drop trail hot springs, spaghetti warehouse hot springs Arkansas, local crafts hot springs farmers market, free activities hot springs national park, hiking tips with kids, family vacation Arkansas"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_27_0.png"
 date: "2024-12-21T12:58:21.754Z"
 author:
