@@ -1,5 +1,5 @@
 import Footer from "@/app/_components/footer";
-import { CMS_NAME, HOME_OG_IMAGE_URL, BLOG_TITLE} from "@/lib/constants";
+import { SITE_URL, HOME_OG_IMAGE_URL, BLOG_TITLE} from "@/lib/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import cn from "classnames";
@@ -63,7 +63,7 @@ export default function RootLayout({
         <meta property="og:title" content={`${BLOG_TITLE}`} />
         <meta property="og:description" content="Join Audrey, a fun-loving, adventurous mom, as she travels the world with her husband Noah and their two young boys, Leo and Max. Audrey shares engaging, humorous, and informative stories about their family adventures, offering honest insights into the challenges and joys of traveling with kids. Her goal is to inspire other young families to explore the world and create unforgettable memories together. Discover tips, advice, and personal anecdotes that will help you plan your next family trip." />
         <meta property="og:image" content={HOME_OG_IMAGE_URL} />
-        <meta property="og:url" content="https://your-blog-url.com" />
+        <meta property="og:url" content={`${SITE_URL}`} />
         <meta property="og:type" content="website" />
       </head>
       <body
