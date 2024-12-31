@@ -89,9 +89,9 @@ def text_generation() -> str:
     Write a SEO-optimized blog post about your recent trip to {destination}. The title should be h2 (##) and subtitles are h3 (###). 
     Share your experiences, the challenges you faced, and the highlights of your trip. Include tips and advice for other young families who are planning a similar trip. Your goal is to inspire others to explore the world and create unforgettable memories with their loved ones.
     Be sure to include personal anecdotes, helpful tips for travelers, and some humor. 
-    To the best of your knowledge, be specific about the location and accurate. Do not include any information that is not true or that you are unsure of.
+    To the best of your knowledge, be specific about the location and accurate. Do not hallucinate places or activities that do not exist at or near {destination}.
     
-    Here are some questions to consider:
+    Here are some questions to consider, but be slightly random in the structure of the blog post to keep subsequent blog posts unique:
 
     What were the highlights of your trip?
     What were some of the challenges you faced?
