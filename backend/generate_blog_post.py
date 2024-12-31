@@ -226,6 +226,31 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
         modified_prompts.append(prompt.strip())
     return [prompt for prompt in modified_prompts if prompt]
 
+def generate_alt_text_from_prompts(prompts: List[str]) -> List[str]:
+    """
+    Generates alt text for images based on the prompts
+
+    Args:
+        prompts (List[str]): List of image prompts
+
+    Returns:
+        List[str]: List of generated alt texts
+    """
+
+    alt_texts = []
+    for prompt in prompts:
+        chatbot_user_prompt = f"Generate alt text for an image from the image prompt below. Respond only with the alt text, nothing else. \n\n {prompt}"
+
+        completion = client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "user", "content": chatbot_user_prompt},
+            ]
+        )
+
+        alt_text = completion.choices[0].message.content
+        alt_texts.append(alt_text)
+    return alt_texts
 
 def insert_blog_post(title: str, content: str) -> int:
     """
@@ -268,13 +293,14 @@ def store_image_urls(blog_post_id: int, image_urls: List[str]) -> None:
     Args:
         blog_post_id (int): The ID of the blog post
         image_urls (List[str]): List of image URLs
+        alt_texts (List[str]): List of alt texts for the images
 
     Returns:
         None
     """
     for i, image_url in enumerate(image_urls):
         try:
-            response = supabase.table("blog_images").insert({"blog_post_id": blog_post_id, "image_url": image_url, "image_number": i+1}).execute()
+            response = supabase.table("blog_images").insert({"blog_post_id": blog_post_id, "image_url": image_url, "image_number": i+1, "alt_text": alt_texts[i]}).execute()
         except Exception as e:
             print(f"Failed to store image URL: {e}")
 
@@ -378,7 +404,7 @@ def mark_spots_for_images(blog_post: str, prompts: List[str]) -> str:
     return marked_blog_post
 
 
-def replace_image_tags_with_urls(blog_post: str, image_urls: List[str]) -> str:
+def replace_image_tags_with_urls(blog_post: str, image_urls: List[str], alt_texts: List[str]) -> str:
     """
     Assumes the blog post has already been marked with "[Image X]".
     Replaces image tags in the blog post with image URLs.
@@ -386,13 +412,14 @@ def replace_image_tags_with_urls(blog_post: str, image_urls: List[str]) -> str:
     Args:
         blog_post (str): The blog post content
         image_urls (List[str]): List of image URLs
+        alt_texts (List[str]): List of alt texts for the images
 
     Returns:
         str: The blog post with image URLs
     """
     for index, image_url in enumerate(image_urls):
         image_tag = f"[Image {index + 1}]"
-        blog_post = blog_post.replace(image_tag, f"![Image {index + 1}]({image_url})")
+        blog_post = blog_post.replace(image_tag, f"![{alt_texts[index]}]({image_url})")
 
     return blog_post
 
@@ -536,6 +563,9 @@ blog_title = blog_title.replace("’", "'")
 print("Generating image prompts...")
 prompts = generate_image_prompts_from_blog_post(blog_post)
 
+print("Generating alt text for images...")
+alt_texts = generate_alt_text_from_prompts(prompts)
+
 print("Marking spots for images...")
 marked_blog_post = mark_spots_for_images(blog_post, prompts)
 
@@ -546,10 +576,10 @@ print("Generating images...")
 image_urls = generate_and_store_images(prompts, blog_title, marked_blog_post, blog_post_id)
 
 print("Storing image URLs...")
-store_image_urls(blog_post_id, image_urls)
+store_image_urls(blog_post_id, image_urls, alt_texts)
 
 print("Replacing image tags with URLs...")
-final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls)
+final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls, alt_texts)
 
 print("Adding metadata to blog post...")
 blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id)
