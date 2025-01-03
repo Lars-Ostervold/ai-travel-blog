@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Success</title>
 </head>
 <body>
-    <h1>Authorization Successful!</h1>
-    <p>Your Access Token:</p>
-    <code>{{ token }}</code>
+    <h1>Authentication Successful</h1>
+    <p>Your access token: {{ token }}</p>
+    <form action="{{ url_for('generate_pin') }}" method="get">
+        <button type="submit">Generate Pin from Most Recent Blog Post</button>
+    </form>
 </body>
 </html>
