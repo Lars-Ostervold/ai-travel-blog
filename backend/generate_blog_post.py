@@ -556,7 +556,33 @@ def generate_keywords_from_blog_post(blog_post: str) -> str:
 
     return completion.choices[0].message.content
 
-def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, keywords: str, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z") -> str:
+def generate_pinterest_board_names(blog_post: str) -> str:
+    """
+    Generates Pinterest board names based on the blog post content
+    
+    Args:
+        blog_post (str): The blog post content
+    
+    Returns:
+        List[str]: List of generated Pinterest board names
+    """
+    chatbot_role_prompt = f"You are a Pinterest SEO expert helping me come up with Pinterest Boards to post my blog post on. Your goal is to identify the most relevant and high-impact Board names that will help the blog post rank well in search results."
+    chatbot_user_prompt = f"""
+    Generate four names for Boards for the blog post below. The Board names should be relevant to the post and help improve SEO for Pinterest. Use two specific board names and two general board names. Keep the board names succinct. Respond with only the Board names, no quotes, separated by commas, and no period at the end. 
+    \n \n {blog_post}
+    """
+
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": chatbot_role_prompt},
+            {"role": "user", "content": chatbot_user_prompt},
+        ]
+    )
+
+    return completion.choices[0].message.content
+
+def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[str], blog_post_id: int, keywords: str, pinterest_boards: str, date_time: str = get_current_datetime_iso8601(),  blogger_name: str = "Audrey Rose", avatar_url: str = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/character-reference/audrey_avatar_square.png?t=2024-12-21T13%3A26%3A30.307Z") -> str:
     """
     Adds metadata to the blog post
 
@@ -570,6 +596,7 @@ def add_metadata_to_blog_post(blog_title: str, blog_post: str, image_urls: List[
 title: "{blog_title}"
 excerpt: "{get_clean_excerpt(blog_post)}"
 keywords: "{keywords}"
+pinterestBoards: "{pinterest_boards}"
 coverImage: "{image_urls[0]}"
 date: "{date_time}"
 author:
@@ -586,6 +613,7 @@ blogPostID: "{blog_post_id}"
         "id": blog_post_id,
         "excerpt": get_clean_excerpt(blog_post),
         "keywords": keywords,
+        "pinterest_boards": pinterest_boards,
         "cover_image": image_urls[0],
         "date_of_post": date_time,
         "author_name": blogger_name,
@@ -635,8 +663,11 @@ final_blog_post = replace_image_tags_with_urls(marked_blog_post, image_urls, alt
 print("Generating keywords from blog post...")
 keywords = generate_keywords_from_blog_post(blog_post)
 
+print("Generating Pinterest board names...")
+pinterest_boards = generate_pinterest_board_names(blog_post)
+
 print("Adding metadata to blog post...")
-blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id, keywords)
+blog_post_plus_metadata = add_metadata_to_blog_post(blog_title, final_blog_post, image_urls, blog_post_id, keywords, pinterest_boards)
 
 #Sometimes the LLM puts "BLOG_POST:" at the beginning
 if "BLOG_POST:" in blog_post_plus_metadata:
