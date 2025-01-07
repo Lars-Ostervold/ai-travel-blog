@@ -286,7 +286,7 @@ def upload_image_to_supabase(image_path: str, image_name: str) -> Optional[str]:
             print(f"Failed to upload image: {e}")
 
 
-def store_image_urls(blog_post_id: int, image_urls: List[str]) -> None:
+def store_image_urls(blog_post_id: int, image_urls: List[str], alt_texts: List[str]) -> None:
     """
     Stores the image URLs in the Supabase database
 
@@ -580,6 +580,23 @@ ogImage:
 blogPostID: "{blog_post_id}"
 ---
     """
+
+    # Upload metadata to Supabase
+    metadata_dict = {
+        "id": blog_post_id,
+        "excerpt": get_clean_excerpt(blog_post),
+        "keywords": keywords,
+        "cover_image": image_urls[0],
+        "date_of_post": date_time,
+        "author_name": blogger_name,
+        "author_picture": avatar_url,
+        "og_image": image_urls[0]
+    }
+    try:
+        response = supabase.table("blog_posts").upsert(metadata_dict).execute()
+    except Exception as e:
+        print(f"Failed to store metadata: {e}")
+
 
     return metadata + "\n\n" + blog_post
 
