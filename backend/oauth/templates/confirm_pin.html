@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Pin</title>
+    <style>
+        .pin-preview {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .pin-preview img {
+            max-width: 100%;
+            height: auto;
+        }
+        .pin-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .pin-description {
+            margin-top: 10px;
+        }
+        .pin-boards {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .loading-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            text-align: center;
+            padding-top: 20%;
+            font-size: 1.5em;
+        }
+    </style>
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+            document.getElementById('loading-screen').style.display = 'block';
+            const formData = new FormData(event.target);
+            fetch('/pin', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading-screen').innerText = data.message;
+                if (data.status === 'success') {
+                    setTimeout(() => {
+                        window.location.href = '/available_pins';
+                    }, 2000);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Confirm Pin</h1>
+    <div class="pin-preview">
+        <h2>Image for Pin</h2>
+        <img src="{{ photo }}" alt="{{ title }}">
+        <h2>Title</h2>
+        <div class="pin-title">{{ title }}</div>
+        <h2>Description</h2>
+        <div class="pin-description">{{ description }}</div>
+        <h2>Link</h2>
+        <a href="{{ link }}" target="_blank">{{ link }}</a>
+        <h2>Boards to Post to</h2>
+        <div class="pin-boards">{{ boards }}</div>
+    </div>
+    <p>Are you sure you want to Pin this to {{ boards }} Boards? By the way, if one of those Boards doesn't exist, we'll create it for you.</p>
+    <form onsubmit="submitForm(event)">
+        <input type="hidden" name="title" value="{{ title }}">
+        <input type="hidden" name="description" value="{{ description }}">
+        <input type="hidden" name="photo" value="{{ photo }}">
+        <input type="hidden" name="link" value="{{ link }}">
+        <input type="hidden" name="boards" value="{{ boards }}">
+        <button type="submit">Yes</button>
+        <a href="/available_pins">No</a>
+    </form>
+    <div id="loading-screen" class="loading-screen">Pinning in progress... (or it would be if we had pinning permissions 😋)</div>
+</body>
+</html>

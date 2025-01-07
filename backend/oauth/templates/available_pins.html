@@ -24,6 +24,19 @@
         .pin-description {
             margin-top: 10px;
         }
+        .pin-boards {
+            margin-top: 10px;
+            font-style: italic;
+        }
+        .pin-button {
+            margin-top: 10px;
+            display: block;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -31,10 +44,17 @@
     <div id="pins-container">
         {% for pin in pins %}
         <div class="pin">
+            <h2>Image for Pin</h2>
             <img src="{{ pin.media_url }}" alt="{{ pin.title }}">
+            <h2>Title</h2>
             <div class="pin-title">{{ pin.title }}</div>
+            <h2>Description</h2>
             <div class="pin-description">{{ pin.description }}</div>
-            <a href="{{ pin.link }}" target="_blank">Read more</a>
+            <h2>Link</h2>
+            <a href="{{ pin.link }}" target="_blank">{{ pin.link }}</a>
+            <h2>Boards to Post to</h2>
+            <div class="pin-boards">{{ pin.boards_to_post_to | join(', ') }}</div>
+            <a class="pin-button" href="{{ url_for('confirm_pin', title=pin.title, description=pin.description, photo=pin.media_url, link=pin.link, boards=pin.boards_to_post_to | join(', ')) }}">Pin This</a>
         </div>
         {% endfor %}
     </div>

@@ -1,5 +1,6 @@
 from flask import Flask, redirect, request, render_template, url_for, session
 import requests
+from typing import List
 import os
 import base64
 from dotenv import load_dotenv
@@ -20,24 +21,105 @@ CLIENT_SECRET = os.getenv('PINTEREST_APP_SECRET')
 REDIRECT_URI = os.getenv('REDIRECT_URI')
 
 class Pin:
-    def __init__(self, title, description, media_url, link):
+    """
+    Represents a Pin for Pinterest with a title, description, media URL, and link.
+    Attributes:
+        title (str): The title of the pin.
+        description (str): The description of the pin.
+        media_url (str): The URL of the media (image) for the pin.
+        link (str): The link associated with the pin.
+        boards_to_post_to (List[str]): The list of board names to post the pin to.
+    """
+    def __init__(self, title: str, description: str, media_url: str, link: str, boards_to_post_to: List[str]) -> None:
+        """
+        Initialize a Pin object.
+        """
         self.title = title
         self.description = description
         self.media_url = media_url
         self.link = link
-    def to_dict(self):
+        self.boards_to_post_to = boards_to_post_to
+
+    def to_dict(self) -> dict:
+        """
+        Convert the Pin object to a dictionary.
+
+        :return: A dictionary representation of the Pin object.
+        """
         return {
             "title": self.title,
             "description": self.description,
             "media_url": self.media_url,
-            "link": self.link
+            "link": self.link,
+            "boards_to_post_to": self.boards_to_post_to
         }
 
-def fetch_most_recent_blog_post():
-    response = supabase.table('blog_posts').select('*').order('created_at', desc=True).limit(1).execute()
-    if response.data:
-        return response.data[0]
+def make_list_from_comma_separated(string):
+    t = string.split(',')
+    t = [word.strip() for word in t]
+    return t
+
+def create_board_and_get_id(access_token, board_name):
+    boards_url = "https://api.pinterest.com/v5/boards/"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "name": board_name,
+        "description": board_name,
+        "privacy": "PUBLIC",
+    }
+    response = requests.post(boards_url, json=payload, headers=headers)
+    if response.status_code == 201:
+        board_id = response.json()["id"]
+        print(f"Board {board_name} created with ID: {board_id}")
+        return board_id
+    else:
+        print("Error creating board:", response.json())
+        return None
+
+def get_board_id(access_token, board_name):
+    boards_url = "https://api.pinterest.com/v5/boards/"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+    response = requests.get(boards_url, headers=headers)
+    if response.status_code == 200:
+        boards = response.json()["items"]
+        for board in boards:
+            if board['name'] == board_name:
+                return board['id']
+        print(f"Board {board_name} not found. Creating board...")
+        return create_board_and_get_id(access_token, board_name)
+
+    else:
+        print("Error fetching boards:", response.json())
     return None
+
+def create_pin(access_token, board_id, title, description, media_url, link):
+    return
+    pin_url = "https://api.pinterest.com/v5/pins"
+    headers = {
+        "Authorization": f"Bearer {access_token}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "board_id": board_id,
+        "title": title,
+        "description": description,
+        "media_source": {
+            "source_type": "image_url",
+            "url": media_url
+        },
+        "link": link,
+    }
+    response = requests.post(pin_url, json=payload, headers=headers)
+    if response.status_code == 201:
+        print("Pin Created Successfully:", response.json())
+    else:
+        print("Error creating pin:", response.json())
 
 '''
 Home route of the application will render the auth.html template if no code exists.
@@ -108,52 +190,40 @@ def available_pins():
         title = blog_post.get('title')
         description = blog_post.get('excerpt')
         media_url = blog_image.get('image_url')
+        board_names: List[str] = make_list_from_comma_separated(blog_post.get('pinterest_boards'))
         link = f"https://chasingmemories.blog/posts/{blog_post_id}_blog"
-        pin = Pin(title, description, media_url, link)
-        print(pin)
+        pin = Pin(title, description, media_url, link, board_names)
         pins.append(pin.to_dict())
-    print("---------PINS---------")
-    print(pins)
     return render_template('available_pins.html', pins=pins)
 
-@app.route('/confirm_pin', methods=['POST'])
+@app.route('/confirm_pin', methods=['GET'])
 def confirm_pin():
-    blog_post = session.get('blog_post')
-    access_token = session.get('access_token')
-    if blog_post and access_token:
-        board_id = 1050253644291870813
-        title = "Soak Up Family Fun: Your Ultimate Guide to Hot Springs National Park Adventures!"
-        description = "This is an example pin created using the Pinterest API."
-        media_url = "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_27_0.png"  # Replace with your image URL
-        link = "https://chasingmemories.blog/posts/27_blog"  # Replace with your blog post URL
-        create_pin(access_token, board_id, title, description, media_url, link)
-        return "Pin posted successfully"
-    return "Error posting pin"
+    title = request.args.get('title')
+    description = request.args.get('description')
+    photo = request.args.get('photo')
+    link = request.args.get('link')
+    boards = request.args.get('boards')
+    return render_template('confirm_pin.html', title=title, description=description, photo=photo, link=link, boards=boards)
 
-def create_pin(access_token, board_id, title, description, media_url, link):
-    pin_url = "https://api.pinterest.com/v5/pins"
-    headers = {
-        "Authorization": f"Bearer {access_token}",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "board_id": board_id,
-        "title": title,
-        "description": description,
-        "media_source": {
-            "source_type": "image_url",
-            "url": media_url
-        },
-        "link": link,  # Optional: Add a destination link
-    }
-    response = requests.post(pin_url, json=payload, headers=headers)
-    if response.status_code == 201:
-        print("Pin Created Successfully:", response.json())
-    else:
-        print("Error creating pin:", response.json())
+@app.route('/pin', methods=['POST'])
+def pin():
+    title = request.form.get('title')
+    description = request.form.get('description')
+    photo = request.form.get('photo')
+    link = request.form.get('link')
+    boards = make_list_from_comma_separated(request.form.get('boards'))
 
-
-
+    board_ids = []
+    for board in boards:
+        id = get_board_id(session['access_token'], board_name=board)
+        board_ids.append(id)
+    
+    for id in board_ids:
+        create_pin(session['access_token'], id, title, description, photo, link)
+    
+    #Return JSON with status and message
+    return {"status": "success", "message": "Pinning executed"}
+    
 
 if __name__ == "__main__":
     app.run(host="localhost", port=8085, debug=True)
