@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Pins</title>
+    <style>
+        .pin {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+            display: inline-block;
+            vertical-align: top;
+        }
+        .pin img {
+            max-width: 100%;
+            height: auto;
+        }
+        .pin-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .pin-description {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Pins</h1>
+    <div id="pins-container">
+        {% for pin in pins %}
+        <div class="pin">
+            <img src="{{ pin.media_url }}" alt="{{ pin.title }}">
+            <div class="pin-title">{{ pin.title }}</div>
+            <div class="pin-description">{{ pin.description }}</div>
+            <a href="{{ pin.link }}" target="_blank">Read more</a>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

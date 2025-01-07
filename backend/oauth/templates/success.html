@@ -8,7 +8,7 @@
 <body>
     <h1>Authentication Successful</h1>
     <p>Your access token: {{ token }}</p>
-    <form action="{{ url_for('generate_pin') }}" method="get">
+    <form action="{{ url_for('available_pins') }}" method="get">
         <button type="submit">Generate Pin from Most Recent Blog Post</button>
     </form>
 </body>
