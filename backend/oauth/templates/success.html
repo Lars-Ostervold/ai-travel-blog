@@ -7,9 +7,9 @@
 </head>
 <body>
     <h1>Authentication Successful</h1>
-    <p>Your access token: {{ token }}</p>
+    <p>Your access token has been saved and you can now interact with Pinterest.</p>
     <form action="{{ url_for('available_pins') }}" method="get">
-        <button type="submit">Generate Pin from Most Recent Blog Post</button>
+        <button type="submit">See available pins</button>
     </form>
 </body>
 </html>
