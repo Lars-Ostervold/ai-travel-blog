@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.chasingmemories.com
+Host: https://www.chasingmemories.blog
 
 # Sitemaps
-Sitemap: https://www.chasingmemories.com/sitemap.xml
+Sitemap: https://www.chasingmemories.blog/sitemap.xml
