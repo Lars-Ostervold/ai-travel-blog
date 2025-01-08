@@ -4,29 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Confirm Pin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        .pin-preview {
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #21466e;
+        }
+        .card {
             border: 1px solid #ddd;
-            padding: 10px;
-            margin: 10px;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px auto;
             width: 300px;
-            display: inline-block;
-            vertical-align: top;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .pin-preview img {
             max-width: 100%;
             height: auto;
+            border-radius: 8px;
         }
-        .pin-title {
-            font-size: 1.2em;
-            font-weight: bold;
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #21466e;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+            border: none;
+            font-size: 1em;
         }
-        .pin-description {
-            margin-top: 10px;
+        .button:hover {
+            background-color: #0056b3;
         }
-        .pin-boards {
-            margin-top: 10px;
-            font-style: italic;
+        .button-container {
+            text-align: center;
+            margin-top: 15px;
         }
         .loading-screen {
             display: none;
@@ -40,6 +63,9 @@
             text-align: center;
             padding-top: 20%;
             font-size: 1.5em;
+        }
+        .pin-link {
+            word-wrap: break-word;
         }
     </style>
     <script>
@@ -65,28 +91,34 @@
 </head>
 <body>
     <h1>Confirm Pin</h1>
-    <div class="pin-preview">
+    <div class="card">
+        <p>This Pin will be posted to the following Boards: <strong>{{ boards }}</strong></p>
+        <p>By the way, if one of those Boards doesn't exist, it will be created for you.</p>
+        <p>Are you sure you want to Pin this?</p>
+        <form onsubmit="submitForm(event)">
+            <input type="hidden" name="title" value="{{ title }}">
+            <input type="hidden" name="description" value="{{ description }}">
+            <input type="hidden" name="photo" value="{{ photo }}">
+            <input type="hidden" name="link" value="{{ link }}">
+            <input type="hidden" name="boards" value="{{ boards }}">
+            <div class="button-container">
+                <button class="button" type="submit">Yes</button>
+                <a class="button" href="/available_pins">No</a>
+            </div>
+        </form>
+    </div>
+    <div class="card pin-preview">
         <h2>Image for Pin</h2>
         <img src="{{ photo }}" alt="{{ title }}">
         <h2>Title</h2>
-        <div class="pin-title">{{ title }}</div>
+        <p>{{ title }}</p>
         <h2>Description</h2>
-        <div class="pin-description">{{ description }}</div>
+        <p>{{ description }}</p>
         <h2>Link</h2>
-        <a href="{{ link }}" target="_blank">{{ link }}</a>
+        <a class="pin-link" href="{{ link }}" target="_blank">{{ link }}</a>
         <h2>Boards to Post to</h2>
-        <div class="pin-boards">{{ boards }}</div>
+        <p>{{ boards }}</p>
     </div>
-    <p>Are you sure you want to Pin this to {{ boards }} Boards? By the way, if one of those Boards doesn't exist, we'll create it for you.</p>
-    <form onsubmit="submitForm(event)">
-        <input type="hidden" name="title" value="{{ title }}">
-        <input type="hidden" name="description" value="{{ description }}">
-        <input type="hidden" name="photo" value="{{ photo }}">
-        <input type="hidden" name="link" value="{{ link }}">
-        <input type="hidden" name="boards" value="{{ boards }}">
-        <button type="submit">Yes</button>
-        <a href="/available_pins">No</a>
-    </form>
     <div id="loading-screen" class="loading-screen">Pinning in progress... (or it would be if we had pinning permissions 😋)</div>
 </body>
 </html>

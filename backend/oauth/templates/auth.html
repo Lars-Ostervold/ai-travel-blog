@@ -4,11 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Authenticate with Pinterest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #1d3652;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 5px;
+            background-color: #21466e;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <h1>Authenticate with Pinterest</h1>
     <form action="{{ url_for('auth_pinterest') }}" method="get">
-        <button type="submit">Click to get Pinterest token</button>
+        <button class="button" type="submit">Click to get Pinterest token</button>
     </form>
 </body>
 </html>
