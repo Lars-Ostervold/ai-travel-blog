@@ -1,4 +1,4 @@
-const SITE_URL = 'https://www.chasingmemories.com';
+const SITE_URL = 'https://www.chasingmemories.blog';
 
 module.exports = {
   siteUrl: SITE_URL,
