@@ -181,7 +181,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     chatbot_user_prompt = f"""
     Generate only 4 image prompts for Midjourney, relevant to this blog post below. Try to space out the images throughout the post. Try to focus on unique details from the post so each image is of a different topic. 
     Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS
-    Mix prompts between the main characters and the setting.
+    Only about 1 in every 6 photos should include the main characters.
 
     Special instructions when generating images of the main characters:
     - Never include more than two characters in a single image.
