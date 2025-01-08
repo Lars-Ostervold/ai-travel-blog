@@ -122,8 +122,6 @@ class MidjourneyApi():
         }
 
         response = requests.request("POST", url, headers=headers, json=payload)
-        print("Post request sent.")
-        print(f"Response: {response}")
         if response.status_code == 204:
             print("Command sent successfully, Waiting for response...")
         else:
