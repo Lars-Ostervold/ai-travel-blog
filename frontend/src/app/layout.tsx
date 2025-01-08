@@ -65,6 +65,11 @@ export default function RootLayout({
         <meta property="og:image" content={HOME_OG_IMAGE_URL} />
         <meta property="og:url" content={`${SITE_URL}`} />
         <meta property="og:type" content="website" />
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3143239686585363"
+          crossOrigin="anonymous">
+        </script>
       </head>
       <body
         className={cn(inter.className, "dark:bg-slate-900 dark:text-slate-400")}
