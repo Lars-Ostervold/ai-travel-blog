@@ -184,7 +184,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     Only about 1 in every 6 photos should include the main characters.
 
     Special instructions when generating images of the main characters:
-    - Never include more than two characters in a single image.
+    - Never include more than one character in a single image.
     - Start the prompt with the number of people in the photo (e.g., "A photo of two people...")
     - ALWAYS include the BOTH the ages AND names of each character (e.g., "Audrey (a woman in her 30s)"). Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
     - Include relative positions of the characters (e.g., "A mother in her early 30s (Audrey) in the foreground with a 5-year-old boy (Max) in the background...")
