@@ -116,7 +116,7 @@ def create_pin(access_token, board_id, title, description, media_url, link):
     }
     response = requests.post(pin_url, json=payload, headers=headers)
     if response.status_code == 201:
-        print("Pin Created Successfully:", response.json())
+        print("Pin Created Successfully")
     else:
         print("Error creating pin:", response.json())
 
