@@ -99,7 +99,6 @@ def get_board_id(access_token, board_name):
     return None
 
 def create_pin(access_token, board_id, title, description, media_url, link):
-    return
     pin_url = "https://api.pinterest.com/v5/pins"
     headers = {
         "Authorization": f"Bearer {access_token}",
