@@ -179,14 +179,14 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
         A good example of a prompt follows. Feel free to adjust the style as necessary.: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
         """    
     chatbot_user_prompt = f"""
-    Generate only 4 image prompts for Midjourney, relevant to this blog post below. Try to space out the images throughout the post. Try to focus on unique details from the post so each image is of a different topic. 
-    Separate each prompt with a new line. DO NOT GENERATE MORE THAN 4 PROMPTS
-    Only about 1 in every 6 photos should include the main characters.
+    Generate only 4 image prompts for Midjourney, relevant to this blog post below. Each prompt should produce a photo-realistic image that could be used in a travel blog.
+    Space out the images throughout the post, focusing on unique details from the post so each image is of a different topic. 
+    Separate each prompt with a new line and nothing else. DO NOT GENERATE MORE THAN 4 PROMPTS
+    Very sparingly include photos of the main characters (Audrey, Noah, Max, Leo) in the image prompts. Most prompt sets should not have any characters.
 
     Special instructions when generating images of the main characters:
-    - Never include more than one character in a single image.
-    - ALWAYS include the BOTH the age AND name of the character (e.g., "Audrey (a woman in her 30s)"). Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
-    - Include relative position of the character (e.g., "A mother in her early 30s (Audrey) in the foreground...")
+    - Only one of Audrey, Max, Noah, or Leo should be in the photo. (i.e., prompt should never include Audrey and Noah, Audrey and Max, etc. Only one of the main characters.).
+    - ALWAYS include the BOTH the age AND name of the character (e.g., "Audrey (a woman in her 30s)"). For your reference, Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
 
     \n \n {blog_post}. 
     "
