@@ -186,7 +186,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     Special instructions when generating images of the main characters:
     - Never include more than one character in a single image.
     - ALWAYS include the BOTH the ages AND names of each character (e.g., "Audrey (a woman in her 30s)"). Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
-    - Include relative positions of the characters (e.g., "A mother in her early 30s (Audrey) in the foreground with a 5-year-old boy (Max) in the background...")
+    - Include relative positions of the characters (e.g., "A mother in her early 30s (Audrey) in the foreground...")
 
     \n \n {blog_post}. 
     "
