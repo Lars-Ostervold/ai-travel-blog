@@ -43,6 +43,45 @@ class PinterestAPI:
             "Content-Type": "application/json",
         }
 
+    def send_failure_email(self, function_name) -> None:
+        """
+        Sends an email to the user letting them know token is expired.
+        
+        Raises:
+            smtplib.SMTPException: If there is an error sending the email
+
+        Returns:
+            None
+        """
+        import os
+        import datetime
+        #Failure email
+        import smtplib
+        from email.mime.text import MIMEText
+        from email.mime.multipart import MIMEMultipart
+        
+        s = smtplib.SMTP(os.getenv("EMAIL_HOST"), os.getenv("EMAIL_PORT"))
+        s.starttls()
+
+        s.login(os.getenv("EMAIL_USER"), os.getenv("EMAIL_PASSWORD"))
+        
+        sender_email = os.getenv("EMAIL_USER")
+        receiver_email = os.getenv("EMAIL_USER")
+        password = os.getenv("EMAIL_PASSWORD")
+
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Travel Blog Pinterest Token Expired"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+        text = f"The following function failed due to an expired Pinterest token: {function_name}. The date is {datetime.datetime.now()}"
+        part = MIMEText(text, "plain")
+        message.attach(part)
+
+        s.sendmail(sender_email, receiver_email, message.as_string())
+
+        s.quit()
+
     def fetch_boards(self):
         boards_url = "https://api.pinterest.com/v5/boards/"
         response = requests.get(boards_url, headers=self.headers)
@@ -68,6 +107,8 @@ class PinterestAPI:
         response = requests.post(pin_url, json=payload, headers=self.headers)
         if response.status_code == 201:
             print("Pin Created Successfully:", response.json())
+        elif response.status_code == 403:
+            self.send_failure_email("post_pin")
         else:
             print("Error creating pin:", response.json())
 
@@ -93,6 +134,8 @@ class PinterestAPI:
             board_id = response.json()["id"]
             print(f"Board {board_name} created with ID: {board_id}")
             return board_id
+        elif response.status_code == 403:
+            self.send_failure_email("create_board_and_get_id")
         else:
             print("Error creating board:", response.json())
             return None
@@ -107,7 +150,8 @@ class PinterestAPI:
                     return board['id']
             print(f"Board {board_name} not found. Creating board...")
             return self.create_board_and_get_id(self.access_token, board_name)
-
+        elif response.status_code == 403:
+            self.send_failure_email("get_board_id_from_name")
         else:
             print("Error fetching boards:", response.json())
         return None
