@@ -82,8 +82,8 @@ def generate_blog_post_for_date(date: str):
 
 if __name__ == "__main__":
     start_date = "2024-01-06"
-    num_posts = 5
-    interval_days = 7
+    num_posts = 36
+    interval_days = 10
 
     dates = generate_dates(start_date, num_posts, interval_days)
 
