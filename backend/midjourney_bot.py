@@ -146,7 +146,7 @@ class MidjourneyApi():
 
         for i in range(3):
             print(f"Looking for upgrade button attempt {i+1}...")
-            time.sleep(60)
+            time.sleep(180)
             try:
                 response = requests.get(f'https://discord.com/api/v9/channels/{self.channel_id}/messages', headers=headers)
                 messages = response.json()
@@ -214,7 +214,7 @@ class MidjourneyApi():
         }
         for i in range(3):
             print(f"Waiting for image download attempt {i+1}...")
-            time.sleep(60)
+            time.sleep(180)
             try:
                 response = requests.get(f'https://discord.com/api/v9/channels/{self.channel_id}/messages', headers=headers)
                 messages = response.json()
