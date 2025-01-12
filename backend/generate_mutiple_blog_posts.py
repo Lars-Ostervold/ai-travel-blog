@@ -87,7 +87,5 @@ if __name__ == "__main__":
 
     dates = generate_dates(start_date, num_posts, interval_days)
 
-    print(dates)
-
     for date in dates:
         generate_blog_post_for_date(date)
