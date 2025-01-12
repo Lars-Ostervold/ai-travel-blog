@@ -129,6 +129,22 @@ class PinterestAPI:
     def post_pin_to_travel_board(self, title, description, media_url, link):
         board_id = self.get_board_id_from_name('Travel')
         self.post_pin(board_id, title, description, media_url, link)
+    
+    def delete_all_pins(self):
+        pins_url = "https://api.pinterest.com/v5/pins"
+        response = requests.get(pins_url, headers=self.headers)
+        if response.status_code == 200:
+            pins = response.json()["items"]
+            for pin in pins:
+                pin_id = pin["id"]
+                delete_pin_url = f"https://api.pinterest.com/v5/pins/{pin_id}"
+                response = requests.delete(delete_pin_url, headers=self.headers)
+                if response.status_code == 204:
+                    print(f"Pin {pin_id} deleted successfully.")
+                else:
+                    print(f"Error deleting pin {pin_id}:", response.json())
+        else:
+            print("Error fetching pins:", response.json())
 
 def add_travel_booard_to_pin(pin):
     pin['boards_to_post_to'].append('Travel')
@@ -193,12 +209,15 @@ def post_recent_pin(pinterest_api, post_to_travel_board=False):
             if post_to_travel_board:
                 pinterest_api.post_pin_to_travel_board(pin.get('title'), pin.get('description'), pin.get('media_url'), pin.get('link'))
 
+
 # Main Execution
 if __name__ == "__main__":
     # Fetch access token
     access_token = USER_TOKEN
     if access_token:
         pinterest_api = PinterestAPI(access_token)
+
+        pinterest_api.delete_all_pins()
 
         # Post all pins
         # post_all_pins(pinterest_api, post_to_travel_board=True)
