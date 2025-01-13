@@ -176,12 +176,14 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
         
 
 
-    A good example of a prompt follows. Feel free to adjust the style as necessary.: "Landscape photography of wild horses grazing near the Dungeness Ruins, wide-angle shot capturing the contrast of the crumbling stone walls and the vibrant green grass of Cumberland Island. Shot on a Nikon Z7 II with a 24-70mm f/2.8 lens. The image evokes serenity and wonder, with golden hour lighting casting long, soft shadows and illuminating the horses’ coats with a warm, golden glow"
+    A good example of a prompt follows. Feel free to adjust the style as necessary.: 
+    Landscape photography of wild horses grazing near the Dungeness Ruins, wide-angle shot capturing the contrast of the crumbling stone walls and the vibrant green grass of Cumberland Island. Shot on a Nikon Z7 II with a 24-70mm f/2.8 lens. The image evokes serenity and wonder, with golden hour lighting casting long, soft shadows and illuminating the horses’ coats with a warm, golden glow
         """    
     chatbot_user_prompt = f"""
     Generate only 4 image prompts for Midjourney, relevant to this blog post below.
     Space out the images throughout the post, focusing on unique details from the post so each image is of a different topic. 
-    Separate each prompt with a new line and nothing else. DO NOT GENERATE MORE THAN 4 PROMPTS
+    Separate each prompt with a new line and nothing else. Response with only the image prompts, separated by a new line and nothing else.
+    DO NOT GENERATE MORE THAN 4 PROMPTS
     
     Either 1 or 0 prompts should included the main characters (Audrey, Noah, Max, Leo).
 
@@ -388,7 +390,9 @@ def mark_spots_for_images(blog_post: str, prompts: List[str]) -> str:
     # Number the prompts
     numbered_prompts_str = number_prompts_into_single_string(prompts)
 
-    chatbot_user_prompt = f"Given the prompts below, mark the spots in the blog post where images should be placed. Given the prompt number, mark the locations with [Image 1], [Image 2], etc. They do not have to be in order. Do not change any other text other than to add the image tags. \n\n PROMPTS: \n {numbered_prompts_str} \n\n BLOG POST: \n {blog_post}"
+    chatbot_user_prompt = f"Given the prompts and blog post below, mark the spots in the blog post where images should be placed. 
+    Given the prompt number, mark the locations with [Image 1], [Image 2], [Image 3], [Image 4]. Make sure you mark a spot for all four images. They do not have to be in order. 
+    Do not change any other text other than to add the image tags. \n\n PROMPTS: \n {numbered_prompts_str} \n\n BLOG POST: \n {blog_post}"
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
