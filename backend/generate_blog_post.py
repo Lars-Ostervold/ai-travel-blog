@@ -166,29 +166,30 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     Returns:
         List[str]: List of generated image prompts
     """
-    chatbot_role_prompt = f"""You are an expert visual artist and professional photographer with a keen eye for detail and composition. Your task is to create detailed, vivid image prompts that could be used by AI image generators to produce photorealistic images. When crafting these prompts, follow these guidelines:
-        Begin with a clear, concise description of the main subject.  
-        Specify the type of shot (e.g., close-up, wide-angle, aerial) and perspective.
-        Describe the lighting conditions in detail, including direction, quality, and color temperature.
-        Include information about the setting or background, providing context and depth.
-        Mention specific textures, materials, and colors where relevant.
-        Reference photographic techniques like depth of field, focus points, or motion blur when appropriate.
-        Suggest camera settings (e.g., lens type, aperture) to achieve the desired effect.
-        Include atmospheric elements like weather conditions or time of day.   
+    chatbot_role_prompt = f"""You are an expert travel photographer and AI image prompt engineer. 
+    Your task is to create detailed, vivid prompts to that capture the essence of travel destinations and experiences.
+    When given a blog post about a trip, you will generate a comprehensive image prompt to produce photographs from AI image generators.
+    Do not use full sentences in natural language, but include main elements and details.
+    Prompts should be 60-80 words each.
+    Here is the formula for creating image prompts from blog posts:
+        "[PHOTOGRAPHY TYPE]" + [SUBJECT/ACTION] + [SHOT TYPE] + [LOCATION/SETTING] + [CAMERA SETTINGS] + [EMOTION] + [LIGHTING].
+        
 
-        A good example of a prompt follows. Feel free to adjust the style as necessary.: A close-up portrait of an elderly Tibetan monk in natural sunlight. His weathered face should show deep wrinkles and laugh lines, with kind, wise eyes that crinkle at the corners. He's wearing traditional maroon and saffron robes with intricate golden embroidery visible on the collar. His head is shaved, and he has a few age spots on his scalp. The monk is sitting in front of a stone wall covered in colorful prayer flags fluttering in a gentle breeze. In the background, slightly out of focus, you can see snow-capped Himalayan peaks. The lighting should be warm and soft, creating gentle shadows that accentuate the textures of his skin and robes. Capture the scene with a shallow depth of field, as if shot with a high-end DSLR camera using a 85mm lens at f/2.8.
+
+    A good example of a prompt follows. Feel free to adjust the style as necessary.: "Landscape photography of wild horses grazing near the Dungeness Ruins, wide-angle shot capturing the contrast of the crumbling stone walls and the vibrant green grass of Cumberland Island. Shot on a Nikon Z7 II with a 24-70mm f/2.8 lens. The image evokes serenity and wonder, with golden hour lighting casting long, soft shadows and illuminating the horses’ coats with a warm, golden glow"
         """    
     chatbot_user_prompt = f"""
-    Generate only 4 image prompts for Midjourney, relevant to this blog post below. Each prompt should produce a photo-realistic image that could be used in a travel blog.
+    Generate only 4 image prompts for Midjourney, relevant to this blog post below.
     Space out the images throughout the post, focusing on unique details from the post so each image is of a different topic. 
     Separate each prompt with a new line and nothing else. DO NOT GENERATE MORE THAN 4 PROMPTS
-    Very sparingly include photos of the main characters (Audrey, Noah, Max, Leo) in the image prompts. Most prompt sets should not have any characters.
+    
+    Either 1 or 0 prompts should included the main characters (Audrey, Noah, Max, Leo).
 
     Special instructions when generating images of the main characters:
     - Only one of Audrey, Max, Noah, or Leo should be in the photo. (i.e., prompt should never include Audrey and Noah, Audrey and Max, etc. Only one of the main characters.).
     - ALWAYS include the BOTH the age AND name of the character (e.g., "Audrey (a woman in her 30s)"). For your reference, Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
 
-    \n \n {blog_post}. 
+    BLOG POST:\n \n "{blog_post}". 
     "
     """
     completion = client.chat.completions.create(
