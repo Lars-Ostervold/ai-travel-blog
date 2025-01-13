@@ -185,7 +185,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     Separate each prompt with a new line and nothing else. Response with only the image prompts, separated by a new line and nothing else.
     DO NOT GENERATE MORE THAN 4 PROMPTS
     
-    Either 1 or 0 prompts should included the main characters (Audrey, Noah, Max, Leo).
+    Of the 4 prompts you generate, only 1 or 0 prompts should include the main characters (Audrey, Noah, Max, Leo).
 
     Special instructions when generating images of the main characters:
     - Only one of Audrey, Max, Noah, or Leo should be in the photo. (i.e., prompt should never include Audrey and Noah, Audrey and Max, etc. Only one of the main characters.).
