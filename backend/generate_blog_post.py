@@ -390,9 +390,9 @@ def mark_spots_for_images(blog_post: str, prompts: List[str]) -> str:
     # Number the prompts
     numbered_prompts_str = number_prompts_into_single_string(prompts)
 
-    chatbot_user_prompt = f"Given the prompts and blog post below, mark the spots in the blog post where images should be placed. 
+    chatbot_user_prompt = f"""Given the prompts and blog post below, mark the spots in the blog post where images should be placed. 
     Given the prompt number, mark the locations with [Image 1], [Image 2], [Image 3], [Image 4]. Make sure you mark a spot for all four images. They do not have to be in order. 
-    Do not change any other text other than to add the image tags. \n\n PROMPTS: \n {numbered_prompts_str} \n\n BLOG POST: \n {blog_post}"
+    Do not change any other text other than to add the image tags. \n\n PROMPTS: \n {numbered_prompts_str} \n\n BLOG POST: \n {blog_post}"""
 
     completion = client.chat.completions.create(
         model="gpt-4o-mini",
