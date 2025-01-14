@@ -391,7 +391,7 @@ def mark_spots_for_images(blog_post: str, prompts: List[str]) -> str:
     numbered_prompts_str = number_prompts_into_single_string(prompts)
 
     chatbot_user_prompt = f"""Given the prompts and blog post below, mark the spots in the blog post where images should be placed. 
-    Given the prompt number, mark the locations with [Image 1], [Image 2], [Image 3], [Image 4]. Make sure you mark a spot for all four images. They do not have to be in order. 
+    Given the prompt number, mark the locations with [Image 1], [Image 2], [Image 3], [Image 4]. Make sure you mark a spot for all four images. They do not have to be in order, but do not repeat images. 
     Do not change any other text other than to add the image tags. \n\n PROMPTS: \n {numbered_prompts_str} \n\n BLOG POST: \n {blog_post}"""
 
     completion = client.chat.completions.create(
@@ -518,8 +518,17 @@ def get_clean_excerpt(blog_post: str) -> str:
     # Remove any leading or trailing special characters
     cleaned_excerpt = clean_lead_and_trail_special_characters(excerpt)
 
-    # Find the last period in the excerpt
+    # Find the last period in the excerpt that is not part of an abbreviation
     last_period = cleaned_excerpt.rfind(".")
+    while last_period != -1 and last_period < len(cleaned_excerpt) - 1 and cleaned_excerpt[last_period + 1].isalpha():
+        last_period = cleaned_excerpt.rfind(".", 0, last_period)
+
+    # If no period is found, return the cleaned excerpt up to the end of the last word
+    if last_period == -1:
+        last_space = cleaned_excerpt.rfind(" ")
+        if last_space != -1:
+            return cleaned_excerpt[:last_space]
+        return cleaned_excerpt
 
     # Return the excerpt up to the last period, including the period
     return cleaned_excerpt[:last_period + 1]
