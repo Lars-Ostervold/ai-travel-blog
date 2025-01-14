@@ -518,20 +518,31 @@ def get_clean_excerpt(blog_post: str) -> str:
     # Remove any leading or trailing special characters
     cleaned_excerpt = clean_lead_and_trail_special_characters(excerpt)
 
-    # Find the last period in the excerpt that is not part of an abbreviation
-    last_period = cleaned_excerpt.rfind(".")
-    while last_period != -1 and last_period < len(cleaned_excerpt) - 1 and cleaned_excerpt[last_period + 1].isalpha():
-        last_period = cleaned_excerpt.rfind(".", 0, last_period)
+    #Find positions of all sentence-ending characters
+    sentence_end_positions = [pos for pos, char in enumerate(cleaned_excerpt) if char in ".!?"]
 
-    # If no period is found, return the cleaned excerpt up to the end of the last word
-    if last_period == -1:
-        last_space = cleaned_excerpt.rfind(" ")
-        if last_space != -1:
-            return cleaned_excerpt[:last_space]
-        return cleaned_excerpt
+    end_of_sentence_exists = False
+    last_valid_end = None
 
-    # Return the excerpt up to the last period, including the period
-    return cleaned_excerpt[:last_period + 1]
+    # Loop through sentence-ending positions
+    for pos in reversed(sentence_end_positions):
+        # Check if pos + 2 is a valid uppercase letter (indicating a new sentence)
+        if pos + 2 < len(cleaned_excerpt) and cleaned_excerpt[pos + 2].isupper():
+            end_of_sentence_exists = True
+            last_valid_end = pos
+            break
+
+    # If a valid sentence-ending position is found, return up to that point
+    if end_of_sentence_exists and last_valid_end is not None:
+        return cleaned_excerpt[:last_valid_end + 1]
+
+    # If no valid sentence end is found, find the last space and return up to that point
+    last_space = cleaned_excerpt.rfind(" ")
+    if last_space != -1:
+        return cleaned_excerpt[:last_space]
+
+    # If no spaces are found, return the cleaned excerpt
+    return cleaned_excerpt
 
 def generate_keywords_from_blog_post(blog_post: str) -> str:
     """
