@@ -55,4 +55,4 @@ def update_yaml_in_supabase():
         supabase.table('blog_posts').upsert({'id': record['id'], 'content': updated_content}).execute()
 
 if __name__ == "__main__":
-    # update_yaml_in_supabase()
+    update_yaml_in_supabase()
