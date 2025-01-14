@@ -2,7 +2,7 @@
 title: "Colorful Chaos: A Family Adventure in Marrakech, Morocco – Tips, Eats, and Must-See Spots!"
 excerpt: "Journey to a World of Color: Our Adventurous Family Trip to Marrakech, Morocco
 
-Hey there, fellow adventurers! Buckle up as I take you on a whirlwind ride through our recent escapade to"
+Hey there, fellow adventurers!"
 keywords: "family trip to Marrakech, family-friendly activities in Marrakech, kid-friendly things to do in Marrakech, best restaurants for families in Marrakech, Marrakech travel tips with kids, cultural etiquette in Marrakech, navigating Marrakech with toddlers, budget travel in Marrakech, street food in Marrakech, exploring Medina with children, family adventures in Morocco, visiting Jardin Majorelle with kids, tips for haggling in Marrakech, Moroccan cuisine for families, traveling to Morocco with young children, family-friendly accommodations in Marrakech, things to do in Marrakech with kids, Moroccan mint tea experience, Koutoubia Mosque visit with family, family travel in Morocco"
 pinterestBoards: "Marrakech Family Travel Tips, Moroccan Cuisine Adventures, Family Travel Inspiration, Colorful Destinations"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_67_0.png"

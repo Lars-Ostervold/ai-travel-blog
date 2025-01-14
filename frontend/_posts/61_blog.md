@@ -1,6 +1,8 @@
 ---
 title: "Portland Family Getaway: Unforgettable Adventures, Foodie Finds, and Tips for Traveling with Toddlers"
-excerpt: ""
+excerpt: "Adventures in Portland, Oregon: A Family Getaway
+
+Hey there, fellow wanderlust warriors!"
 keywords: "family getaway Portland Oregon, family-friendly activities Portland, things to do with kids in Portland, Portland adventures for families, best parks in Portland for children, Portland Children's Museum reviews, Washington Park Portland attractions, food trucks in Portland for families, must-try foods in Portland, budget-friendly activities Portland, hiking with kids in Portland, Portland Farmers Market tips, traveling with toddlers in Portland, flexible travel tips for families, local cuisine in Portland, family travel tips Portland, Portland family travel guide, fun things to do in Portland with kids, Portland kid-friendly restaurants, Portland travel recommendations for families"
 pinterestBoards: "Portland Family Adventures, Kids Activities in Portland, Family Travel Tips, Exploring Oregon with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_61_0.png"

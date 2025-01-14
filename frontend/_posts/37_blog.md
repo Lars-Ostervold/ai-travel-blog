@@ -1,6 +1,8 @@
 ---
 title: "Rome with Kids: Family Fun, Flavorful Adventures, and Priceless Memories!"
-excerpt: ""
+excerpt: "Our Family Adventure in Rome: A Journey of Pizza, Pasta, and Priceless Memories
+
+Oh, Rome!"
 keywords: "family travel in Rome, things to do in Rome with kids, family-friendly activities in Rome, best gelato in Rome, visiting the Colosseum with children, Vatican City with kids, tips for traveling with toddlers in Rome, budget-friendly family travel Rome, must-try Roman foods, what to do in Trastevere with kids, exploring ancient ruins in Rome, Italy travel tips for families, child-friendly restaurants in Rome, packing snacks for traveling with children, family adventures in the Eternal City, Rome travel guide for families, Colosseum family experience, kid-friendly gelato shops in Rome, traveling in Rome with strollers, cultural customs in Italy for families"
 pinterestBoards: "Family Adventures in Rome, Traveling with Kids in Italy, Family Travel Tips, Exploring Rome with Children"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_37_0.png"
@@ -26,7 +28,7 @@ Before I get into the nitty-gritty of parenting dilemmas (you know, like who can
 
 - **Vatican City**: We braved the crowds and visited the Vatican Museums—but let me tell you, this is where my "Fun Mom" persona really earned its stripes. The Sistine Chapel's ceiling was a masterpiece (and a great lesson appalling the word "no" to the kids when they wanted to throw a paper airplane). Bring snacks and be prepared for a loooong hallway—having to entertain a toddler with a novel on Renaissance art isn't easy! 
 
-- **Strolling through Trastevere**: This charming neighborhood is a feast for the senses. Narrow, cobblestone streets lined with charming trattorias and colorful buildings create a picturesque playground for the boys to explore (that is until Leo took a dive into a fountain). Instant laughter, and we still joke about his “refreshing” swim!
+- **Strolling through Trastevere**: This charming neighborhood is a feast for the senses. Narrow, cobblestone streets lined with charming trattorias and colorful buildings create a picturesque playground for the boys to explore (that is until Leo took a dive into a fountain). Instant laughter, and we still joke about his “refreshing” swim! ![A close-up photo of a 5-year-old boy named Max, with an excited expression, holding a cone of vibrant blue bubblegum gelato that is slightly melting in the warm sunlight. He leans against a picturesque cobblestone street in Trastevere. The background is softly blurred, featuring colorful buildings and flowering plants, creating a dreamy atmosphere. The image captures the moment with a shallow depth of field, bringing attention to Max and his treat.](https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_37_1.png)
 
 ### Tackling the Challenges
 

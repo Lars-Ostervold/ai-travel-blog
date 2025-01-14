@@ -1,6 +1,8 @@
 ---
 title: "Family Fun in Nashville: Honky-Tonks, Chicken Tenders, and Kid-Friendly Adventures!"
-excerpt: ""
+excerpt: "Our Family Adventure in Nashville: Honky-Tonk and Chicken Tenders!
+
+Nashville, USA!"
 keywords: "family travel Nashville, Nashville family vacation, traveling with kids Nashville, things to do in Nashville with children, Nashville attractions for families, family-friendly restaurants Nashville, kid-friendly activities Nashville, Nashville hot chicken, best spots for kids in Nashville, Nashville Southern food favorites, Nashville music scene with family, Nashville adventure tips, exploring Nashville with toddlers, budget-friendly Nashville activities, family trip to Nashville, Nashville Farmers' Market tips, adventure science center Nashville, Centennial Park family fun, travel tips Nashville with children, Southern hospitality in Nashville"
 pinterestBoards: "Nashville Family Adventures, Traveling with Kids in Nashville, Family Travel Tips, Southern Food and Fun"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_50_0.png"

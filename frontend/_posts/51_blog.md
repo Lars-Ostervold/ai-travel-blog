@@ -1,6 +1,8 @@
 ---
 title: "Unlocking Winter Magic: Your Ultimate Family Guide to the Harbin Ice Festival in China"
-excerpt: ""
+excerpt: "Embracing the Frost: Family Adventures at the Harbin Ice Festival, China
+
+Well, folks, strap on your snow boots and grab a hot chocolate because today I'm sharing our unforgettable family trip to"
 keywords: "Harbin Ice Festival family travel, family adventures in Harbin, things to do in Harbin with kids, Harbin winter festival tips, visiting Harbin with toddlers, ice sculptures in Harbin, local food in Harbin, budget-friendly activities Harbin, travel guide Harbin Ice Festival, Harbin winter activities for families, ice festival travel tips, best family destinations in China, cultural etiquette in Harbin, winter travel with kids, family-friendly winter activities in China, unforgettable memories at Harbin festival, tips for cold weather travel, family-friendly street food in Harbin, exploring Harbin in winter, must-try foods in Harbin"
 pinterestBoards: "Harbin Ice Festival Tips, Family Travel Adventures, Winter Travel Ideas, Exploring China with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_51_0.png"

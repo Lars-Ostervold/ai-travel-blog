@@ -1,6 +1,8 @@
 ---
 title: "Sun, Sand, and Family Fun: A Kid-Friendly Adventure in Myrtle Beach, SC"
-excerpt: ""
+excerpt: "Our Family Adventure in Myrtle Beach, South Carolina: Sun, Sand, and Sweet Memories
+
+As a family that thrives on adventure, our recent trip to Myrtle Beach, South Carolina, was nothing short of"
 keywords: "family vacation Myrtle Beach, Myrtle Beach activities for kids, things to do in Myrtle Beach, family-friendly restaurants Myrtle Beach, Myrtle Beach travel tips, best family attractions Myrtle Beach, Myrtle Beach family itinerary, Ripley's Aquarium Myrtle Beach, Myrtle Beach Boardwalk attractions, traveling with toddlers Myrtle Beach, Calabash seafood Myrtle Beach, Family Kingdom Amusement Park tips, packing for beach vacation, accommodations in Myrtle Beach with kitchenettes, family beach fun Myrtle Beach, toddler tantrums on vacation, Southern hospitality Myrtle Beach, Myrtle Beach ice cream spots, evening entertainment Myrtle Beach, tips for visiting Myrtle Beach"
 pinterestBoards: "Myrtle Beach Family Travel Tips, Family Adventures in South Carolina, Beach Vacations for Kids, Fun Family Getaways"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_54_0.png"

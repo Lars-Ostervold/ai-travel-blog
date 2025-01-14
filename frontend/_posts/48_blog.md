@@ -1,6 +1,8 @@
 ---
 title: "Navigating Winter's Wonderland: A Family Adventure at Sapporo's Snow Festival"
-excerpt: ""
+excerpt: "Our Wintry Adventure: Sapporo Snow Festival in Japan
+
+Oh, Sapporo!"
 keywords: "Sapporo Snow Festival, family travel Sapporo, winter travel with kids, Sapporo winter activities, Hokkaido cuisine, best food at Sapporo Snow Festival, snow sculptures Sapporo, Sapporo festivals, things to do in Sapporo winter, family-friendly attractions Sapporo, budget travel tips Sapporo, public transportation Sapporo, toddler-friendly travel Japan, cultural customs in Japan, snow sports Sapporo, Hokkaido ramen, Genghis Khan BBQ Sapporo, winter wonderland Japan, family-friendly winter destinations, tips for visiting Sapporo with kids, navigating Sapporo Snow Festival, Sapporo winter events, local food recommendations Sapporo, traveling with toddlers in winter"
 pinterestBoards: "Sapporo Snow Festival Adventures, Family-Friendly Travel in Japan, Winter Travel Tips, Japanese Cuisine Delights"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_48_0.png"

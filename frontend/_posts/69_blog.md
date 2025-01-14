@@ -2,7 +2,7 @@
 title: "Making Waves and Memories: A Family Guide to Myrtle Beach Adventures with Kids"
 excerpt: "Our Family Adventure at Myrtle Beach, South Carolina: Sand, Surf, and Silly Moments
 
-Oh, Myrtle Beach! The land where sandy toes meet salty kisses, and where the phrase "are we there yet?" is"
+Oh, Myrtle Beach!"are we there yet?" is"
 keywords: "family vacation Myrtle Beach, things to do in Myrtle Beach with kids, traveling with toddlers, Myrtle Beach family activities, tips for visiting Myrtle Beach, best family restaurants Myrtle Beach, budget-friendly Myrtle Beach attractions, Myrtle Beach seafood restaurants, toddler-friendly beach tips, family road trip to Myrtle Beach, fun things to do at Broadway at the Beach, must-try local foods in Myrtle Beach, sunscreen tips for beach trips, activities for families in Myrtle Beach, managing toddler tantrums on vacation, Southern hospitality in Myrtle Beach, memorable family moments at the beach, packing tips for beach travel, free activities in Myrtle Beach"
 pinterestBoards: "Myrtle Beach Family Travel Tips, Family Adventures in South Carolina, Beach Vacation Ideas, Kid-Friendly Travel Destinations"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_69_0.png"

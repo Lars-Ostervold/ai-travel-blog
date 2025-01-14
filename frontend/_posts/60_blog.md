@@ -1,6 +1,8 @@
 ---
 title: "Washington D.C. Family Adventure: Top Tips for Exploring the Nation's Capital with Kids!"
-excerpt: "Exploring Washington D.C."
+excerpt: "Exploring Washington D.C.: The Ultimate Family Adventure 
+
+Hey fellow adventurers! Audrey here, and oh boy, do I have a tale to tell from our recent trip to the nation's capital!"
 keywords: "family travel Washington D.C., things to do in Washington D.C. with kids, family-friendly activities Washington D.C., budget travel tips Washington D.C., best museums for kids in Washington D.C., Washington D.C. attractions for families, National Zoo Washington D.C., Smithsonian museums for children, tips for traveling with toddlers, outdoor activities in Washington D.C., family adventures in D.C., kid-friendly food in Washington D.C., local cuisine Washington D.C., affordable family outings Washington D.C., exploring Washington D.C. with children, cultural customs in Washington D.C., visiting the National Mall with kids, fun places to picnic in Washington D.C., educational experiences for families D.C."
 pinterestBoards: "Washington D.C. Family Travel, Kid-Friendly Things to Do in D.C., Family Adventures in Travel, Exploring the U.S. with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_60_0.png"

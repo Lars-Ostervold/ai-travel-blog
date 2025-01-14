@@ -2,7 +2,7 @@
 title: "Stockholm with Kids: Unforgettable Family Adventures in Sweden's Capital"
 excerpt: "Stockholm Adventures: A Family Journey Through Sweden's Capital
 
-Hey there, fellow adventurers! Grab your passport and your sense of humor because I'm taking you on a wild ride through our recent"
+Hey there, fellow adventurers!"
 keywords: "Stockholm family travel, things to do in Stockholm with kids, Gamla Stan attractions, best family-friendly activities in Stockholm, Stockholm public transportation tips, Vasa Museum family visit, Gröna Lund amusement park information, Djurgården park guide, budget-friendly Stockholm travel tips, Swedish cuisine recommendations, trying Swedish meatballs, cinnamon buns in Stockholm, cultural tips for visiting Sweden, family-friendly restaurants in Stockholm, free walking tours Stockholm, exploring Stockholm with toddlers, family adventures in Stockholm, traveling in Stockholm with children, must-visit places in Stockholm for families"
 pinterestBoards: "Stockholm Family Travel Tips, Exploring Stockholm with Kids, Family Travel Adventures, Things to Do in Stockholm"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_64_0.png"

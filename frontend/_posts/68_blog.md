@@ -2,7 +2,7 @@
 title: "Cannon Beach Family Adventures: Tips, Tales & Tidal Fun for Every Traveler!"
 excerpt: "Our Adventure at Cannon Beach, Oregon: Memories Made and Lessons Learned!
 
-Gather ‘round, fellow fam-trotters! Let me take you back to our recent whirlwind adventure at the stunning Cannon Beach,"
+Gather ‘round, fellow fam-trotters!"
 keywords: "Cannon Beach Oregon family travel, things to do in Cannon Beach with kids, Cannon Beach trip highlights, toddler activities Cannon Beach, best beaches for families in Oregon, Ecola State Park family hiking, Cannon Beach weather tips, family-friendly rentals near Cannon Beach, affordable family fun Cannon Beach, Cannon Beach dining with kids, Mo's Seafood Chowder review, local attractions Cannon Beach, budget-friendly activities Cannon Beach, Cannon Beach toy stores, tips for visiting Cannon Beach with toddlers, Pacific Northwest family vacations, beach bonfire rules Oregon, Cannon Beach farmers market, sea stacks Cannon Beach attractions, Cannon Beach memories and lessons"
 pinterestBoards: "Cannon Beach Family Adventures, Oregon Coast Travel Tips, Family-Friendly Travel, Beach Vacation Ideas"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_68_0.png"

@@ -2,7 +2,7 @@
 title: "Brisbane Family Adventure: A Fun-Filled Guide to Exploring Australia with Kids"
 excerpt: "Our Unforgettable Adventure in Brisbane, Australia: A Family Journey
 
-Ahoy, fellow adventure-seekers! Buckle your seatbelts (and secure those little ones in their booster seats) because I'm about"
+Ahoy, fellow adventure-seekers!"
 keywords: "family travel Brisbane Australia, Brisbane family attractions, things to do in Brisbane with kids, Brisbane adventure with toddlers, South Bank Parklands activities, Lone Pine Koala Sanctuary visit tips, family-friendly restaurants Brisbane, budget travel tips Brisbane, kid-friendly activities Brisbane, Brisbane travel tips for families, Brisbane food recommendations, Queensland Art Gallery for families, best parks in Brisbane for kids, cultural customs in Australia, Brisbane City Botanic Gardens free activities, exploring Brisbane with young children"
 pinterestBoards: "Brisbane Family Travel Tips, Adventurous Family Trips in Australia, Family Travel Adventures, Exploring Brisbane with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_65_0.png"

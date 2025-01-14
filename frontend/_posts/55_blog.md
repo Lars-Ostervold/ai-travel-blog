@@ -1,6 +1,8 @@
 ---
 title: "Family Fun and Chaos: Our Wild SXSW Adventure in Austin, Texas"
-excerpt: ""
+excerpt: "Our Wild Adventure at South by Southwest (SXSW) in Texas: A Family Tale
+
+Hey there, fellow adventure-seekers!"
 keywords: "SXSW family adventure, South by Southwest with kids, traveling in Austin Texas, family-friendly events SXSW, kid-friendly activities SXSW, live music festival Austin, food trucks in Austin, budget-friendly SXSW tips, family workshops SXSW, outdoor activities in Austin, cultural experiences in Texas, kid-friendly dining in Austin, Texas travel tips, unforgettable family trips, laughter and chaos while traveling, travel challenges with children, local Texan cuisine, parenting tips for travel, exploring Austin with family, interactive tech at SXSW"
 pinterestBoards: "SXSW Family Travel Tips, Austin Adventure with Kids, Family Travel Experiences, Music and Culture Festivals"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_55_0.png"

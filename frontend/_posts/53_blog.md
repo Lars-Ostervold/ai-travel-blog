@@ -1,6 +1,8 @@
 ---
 title: "Krakow with Kids: A Family Adventure Full of Fun, Food, and Memorable Journeys"
-excerpt: ""
+excerpt: "Our Whirlwind Adventure in Krakow, Poland: Kid-Friendly Fun and Family Memories
+
+Ah, Krakow!"
 keywords: "Krakow family travel guide, kid-friendly activities in Krakow, things to do with kids in Krakow, visiting Wawel Castle with children, Krakow travel tips for families, budget-friendly family attractions in Krakow, Polish food for kids in Krakow, navigating Krakow with a stroller, family-friendly museums in Krakow, fun things to do in Krakow with toddlers, best street food in Krakow, cultural tips for visiting Poland, Krakow adventures with children, where to eat in Krakow with kids, sightseeing in Krakow for families, exploring Rynek Glówny with kids, must-try Polish snacks for kids, tips for traveling to Krakow with kids, family memories in Krakow, kid-friendly restaurants in Krakow"
 pinterestBoards: "Krakow Family Adventures, Kid-Friendly Travel in Europe, Family Travel Tips, Exploring Poland with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_53_0.png"

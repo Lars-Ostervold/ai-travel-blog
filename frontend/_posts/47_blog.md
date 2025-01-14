@@ -1,6 +1,8 @@
 ---
 title: "Family Fun in Montevideo: Tips, Tales, and Tasty Adventures in Uruguay!"
-excerpt: ""
+excerpt: "Discovering Montevideo: A Family Adventure in Uruguay!
+
+Oh, Montevideo—land of sun, smiles, and a whole lot of gelato! Yes, you read that right!"
 keywords: "Montevideo family travel tips, things to do in Montevideo with kids, family-friendly activities Montevideo, traveling with children in Uruguay, best parks in Montevideo for families, local food to try in Montevideo, budget activities Montevideo, cultural customs in Uruguay, exploring Ciudad Vieja Montevideo, Mercado del Puerto food guide, Parque Rodó family outings, Uruguay travel guide for families, Montevideo adventure tips, must-try Uruguayan dishes, family adventures in South America, Montevideo travel experiences, tips for visiting Uruguay with kids, family sightseeing in Montevideo, Montevideo travel itinerary for families"
 pinterestBoards: "Montevideo Family Adventures, Traveling with Kids in Uruguay, Family Travel Tips, Exploring South America"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_47_0.png"

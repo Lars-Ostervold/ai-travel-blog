@@ -1,6 +1,8 @@
 ---
 title: "Northern Lights and Family Nights: Your Guide to Chasing the Aurora Borealis in Tromsø, Norway"
-excerpt: ""
+excerpt: "Chasing the Northern Lights: Our Epic Family Adventure in Tromsø, Norway
+
+Ever thought about dragging your kiddos on an icy adventure to catch a glimpse of the spectacular Aurora Borealis?"
 keywords: "Northern Lights family adventure, Tromsø Norway travel tips, chasing Aurora Borealis with kids, family-friendly activities in Tromsø, tips for traveling with toddlers in Norway, experiencing Northern Lights in Tromsø, kid-friendly winter vacations, Arctic family travel guide, budget-friendly activities in Tromsø, local cuisine in Tromsø, reindeer stew Norway, cultural tips for Norway, planning a Northern Lights trip, toddler winter clothing tips, must-see attractions in Tromsø, snow activities for families, educational museums in Tromsø, hiking trails in Tromsø, best time to see Northern Lights in Norway, family tours in Tromsø"
 pinterestBoards: "Northern Lights Family Adventure, Tromsø Travel Tips, Family Travel Adventures, Exploring Norway with Kids"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_62_0.png"

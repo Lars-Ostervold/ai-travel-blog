@@ -1,6 +1,8 @@
 ---
 title: "Family Fun Under Santorini's Sun: A Traveling Mom's Guide to Unforgettable Adventures"
-excerpt: ""
+excerpt: "Unforgettable Family Adventures in Santorini, Greece: Tips from a Traveling Mom
+
+Ah, Santorini!"
 keywords: "family-friendly adventures in Santorini, tips for traveling with kids in Greece, family travel Santorini, Santorini travel guide for families, best activities in Santorini for toddlers, exploring Oia with children, Santorini cable car experience, family beach activities in Santorini, Kamari Beach for kids, local foods to try in Santorini, moussaka in Santorini, souvlaki in Santorini, Santorini wine tasting with family, budget-friendly activities in Santorini, cultural etiquette in Greece, traveling with toddlers in Santorini, family vacation Santorini tips, unforgettable family memories in Santorini, Santorini sunset views for families, navigating Santorini with kids"
 pinterestBoards: "Family Travel Tips, Santorini Family Adventures, Traveling with Kids, Greek Island Getaways"
 coverImage: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_63_0.png"
@@ -11,11 +13,6 @@ author:
 ogImage:
     url: "https://nxvznoqipejdootcntuo.supabase.co/storage/v1/object/public/travel-blog-images/image_63_0.png"
 blogPostID: "63"
----
-    
-
-Sure! Here is the blog post with the image tags added in appropriate locations:
-
 ---
 
 ## Unforgettable Family Adventures in Santorini, Greece: Tips from a Traveling Mom
