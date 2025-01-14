@@ -81,8 +81,8 @@ def generate_blog_post_for_date(date: str):
     print("Blog post uploaded to GitHub!")
 
 if __name__ == "__main__":
-    start_date = "2024-02-07"
-    num_posts = 29
+    start_date = "2024-08-12"
+    num_posts = 15
     interval_days = 11
 
     dates = generate_dates(start_date, num_posts, interval_days)
