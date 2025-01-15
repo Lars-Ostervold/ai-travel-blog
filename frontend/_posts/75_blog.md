@@ -1,7 +1,5 @@
 ---
-title: "Family Fun Gone Wild: Our Hilarious Adventure at the Great Barrier Reef!”** 
-
-**SEO Keywords:** Great Barrier Reef family adventure, snorkeling with kids, traveling Australia with toddlers, family travel tips, Great Barrier Reef highlights"
+title: "Family Fun Gone Wild: Our Hilarious Adventure at the Great Barrier Reef!"
 excerpt: "Our Family Adventure at the Great Barrier Reef: Splashes of Fun and a Few Meltdowns 
 
 Ahoy, adventure seekers! Grab your sunscreens and snorkels because I'm taking you on a fabulous journey to"
