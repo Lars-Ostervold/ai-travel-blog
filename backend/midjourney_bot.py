@@ -10,6 +10,9 @@ from typing import Any, Dict, List
 
 import os
 
+WAIT_SECS = 60
+
+
 class MidjourneyApi():
     """
     A class to interact with the Midjourney API via Discord.
@@ -146,7 +149,7 @@ class MidjourneyApi():
 
         for i in range(3):
             print(f"Looking for upgrade button attempt {i+1}...")
-            time.sleep(180)
+            time.sleep(WAIT_SECS)
             try:
                 response = requests.get(f'https://discord.com/api/v9/channels/{self.channel_id}/messages', headers=headers)
                 messages = response.json()
@@ -214,7 +217,7 @@ class MidjourneyApi():
         }
         for i in range(3):
             print(f"Waiting for image download attempt {i+1}...")
-            time.sleep(180)
+            time.sleep(WAIT_SECS)
             try:
                 response = requests.get(f'https://discord.com/api/v9/channels/{self.channel_id}/messages', headers=headers)
                 messages = response.json()
@@ -226,6 +229,31 @@ class MidjourneyApi():
                 return image_response.content
             except:
                 raise ValueError("Timeout")
+            
+    def post_message(self, message: str) -> None:
+        """
+        Posts a message to the specified Discord channel.
+
+        Args:
+            message (str): The message content to post.
+
+        Returns:
+            None
+        """
+        url = f"https://discord.com/api/v9/channels/{self.channel_id}/messages"
+        headers = {
+            "Authorization": self.self_authorization,
+            "Content-Type": "application/json",
+        }
+        data: Dict[str, Any] = {
+            "content": message,
+        }
+        response = requests.post(url, headers=headers, json=data)
+        if response.status_code == 200:
+            print("Message posted successfully.")
+        else:
+            print(response.json())
+            print(f"Error posting message: {response.status_code}")
 
 def fetch_latest_messages(channel_id: str, token: str) -> List[Dict[str, Any]]:
     """
@@ -249,35 +277,3 @@ def fetch_latest_messages(channel_id: str, token: str) -> List[Dict[str, Any]]:
         print(response.json())
         print(f"Error fetching messages: {response.status_code}")
         return []
-
-
-def post_message(channel_id: str, token: str, message: str) -> None:
-    """
-    Posts a message to a specified Discord channel.
-
-    Args:
-        channel_id (str): The ID of the Discord channel.
-        token (str): The authorization token for the Discord bot.
-        message (str): The message content to post.
-
-    Returns:
-        None
-    """
-    url = f"https://discord.com/api/v9/channels/{channel_id}/messages"
-    headers = {
-        "Authorization": token,
-        "Content-Type": "application/json",
-    }
-    data: Dict[str, Any] = {
-  "content": message,
-  "embeds": [{
-    "title": "Hello, Embed!",
-    "description": "This is an embedded message."
-  }]
-}
-    response = requests.post(url, headers=headers, json=data)
-    if response.status_code == 200:
-        print("Message posted successfully.")
-    else:
-        print(response.json())
-        print(f"Error posting message: {response.status_code}")

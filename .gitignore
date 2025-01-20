@@ -37,4 +37,5 @@ next-env.d.ts
 #Python backend
 /backend/generate_blog_env
 /backend/.env
+/backend/blog_deployment_container 
 

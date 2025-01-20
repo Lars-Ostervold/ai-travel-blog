@@ -182,13 +182,15 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     chatbot_user_prompt = f"""
     Generate only 4 image prompts for Midjourney, relevant to this blog post below.
     Space out the images throughout the post, focusing on unique details from the post so each image is of a different topic. 
-    Separate each prompt with a new line and nothing else. Response with only the image prompts, separated by a new line and nothing else.
+    Each prompt should be separated with a new line and nothing else. 
+    Your response should only include the prompts, separated by new lines. No other words in your response.
     DO NOT GENERATE MORE THAN 4 PROMPTS
     
-    Of the 4 prompts you generate, only 1 or 0 prompts should include the main characters (Audrey, Noah, Max, Leo).
+    Focus on elements from the post that do not include the main characters (Audrey, Noah, Max, Leo).
+    Rarely include prompts of the main character. Usually zero prompts should include the main characters, sparingly, a maximum of one prompt.
 
-    Special instructions when generating images of the main characters:
-    - Only one of Audrey, Max, Noah, or Leo should be in the photo. (i.e., prompt should never include Audrey and Noah, Audrey and Max, etc. Only one of the main characters.).
+    If you generate images of Audrey, Max, Leo, or Noah, here are special instructions you must follow. Ignore these if you do not generate images of the main characters:
+    - Only one main character should be in focus in the image. There should be no other people in the foreground.
     - ALWAYS include the BOTH the age AND name of the character (e.g., "Audrey (a woman in her 30s)"). For your reference, Audrey is a mother in her early 30s, Noah is a father in his early 30s, Max is a 5-year old boy toddler, and Leo is a 2-year old boy. 
 
     BLOG POST:\n \n "{blog_post}". 
@@ -327,6 +329,8 @@ def generate_and_store_images(prompts: List[str], blog_title: str, marked_blog_p
             midjourney.find_upgrade_button()
             midjourney.upgrade_image()
             midjourney_photo = midjourney.download_image()
+            #Posts message between photo generation calls so we don't download an old image
+            midjourney.post_message("Woo great image! Thanks for your help! I'll be back for more soon!")
 
             #store in temp file
             with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as temp_file:
@@ -650,7 +654,7 @@ blogPostID: "{blog_post_id}"
 
     return metadata + "\n\n" + blog_post
 
-if __name__ == "__main__":
+def main():
     print("Generating blog post...")
     blog_post = text_generation()
 
@@ -713,3 +717,6 @@ if __name__ == "__main__":
 
     upload_blog_post_to_github(CONTENT_STRING, GITHUB_TOKEN, REPO_NAME, UPLOAD_PATH, BRANCH, COMMIT_MESSAGE, )
     print("Blog post uploaded to GitHub!")
+
+if __name__ == "__main__":
+    main()
