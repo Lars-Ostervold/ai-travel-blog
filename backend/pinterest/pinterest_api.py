@@ -15,7 +15,7 @@ class Pin:
         """
         Initialize a Pin object.
         """
-        self.title = title
+        self.title = title[:98]  # Ensure title is max 98 characters
         self.description = description
         self.media_url = media_url
         self.link = link
