@@ -14,8 +14,6 @@ COPY pinterest/lambda_function.py ${LAMBDA_TASK_ROOT}
 COPY .env ${LAMBDA_TASK_ROOT}
 COPY pinterest/pinterest_api.py ${LAMBDA_TASK_ROOT}
 COPY pinterest/pinterest_main.py ${LAMBDA_TASK_ROOT}
-COPY pinterest/post_all_pins.py ${LAMBDA_TASK_ROOT}
-COPY pinterest/post_random_pin_single_board.py ${LAMBDA_TASK_ROOT}
 COPY pinterest/post_random_pin_multiple_boards.py ${LAMBDA_TASK_ROOT}
 COPY pinterest/post_recent_pin.py ${LAMBDA_TASK_ROOT}
 
