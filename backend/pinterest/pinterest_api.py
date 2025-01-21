@@ -175,3 +175,21 @@ class PinterestAPI:
                     print(f"Error deleting pin {pin_id}:", response.json())
         else:
             print("Error fetching pins:", response.json())
+    
+    def delete_n_most_recent_pins(self, n):
+        pins_url = "https://api.pinterest.com/v5/pins"
+        response = requests.get(pins_url, headers=self.headers)
+        if response.status_code == 200:
+            pins = response.json()["items"]
+            #Sort pins by created_at
+            pins.sort(key=lambda x: x['created_at'], reverse=True)
+            for pin in pins[:n]:
+                pin_id = pin["id"]
+                delete_pin_url = f"https://api.pinterest.com/v5/pins/{pin_id}"
+                response = requests.delete(delete_pin_url, headers=self.headers)
+                if response.status_code == 204:
+                    print(f"Pin {pin_id} deleted successfully.")
+                else:
+                    print(f"Error deleting pin {pin_id}:", response.json())
+        else:
+            print("Error fetching pins:", response.json())
