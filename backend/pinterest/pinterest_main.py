@@ -46,6 +46,7 @@ def post_all_pins(pinterest_api, post_to_travel_board=False):
     pins = get_all_blog_images_entries_in_pin_list()
     for pin in pins:
         for board_name in pin.get('boards_to_post_to'):
+            print(f"Attempting to post pin {pin.get('title')} to board: {board_name}")
             board_id = pinterest_api.get_board_id_from_name(board_name)
             pinterest_api.post_pin(board_id, pin.get('title'), pin.get('description'), pin.get('media_url'), pin.get('link'))
             if post_to_travel_board:
@@ -55,6 +56,7 @@ def post_random_pin_single_board(pinterest_api):
     pins = get_all_blog_images_entries_in_pin_list()
     random_pin = random.choice(pins)  
     board = random.choice(random_pin.get('boards_to_post_to'))
+    print(f"Attempting to post pin {random_pin.get('title')} to board: {board}")
     board_id = pinterest_api.get_board_id_from_name(board)
     pinterest_api.post_pin(board_id, random_pin.get('title'), random_pin.get('description'), random_pin.get('media_url'), random_pin.get('link'))
 
@@ -62,6 +64,7 @@ def post_random_pin_multiple_boards(pinterest_api, post_to_travel_board=False):
     pins = get_all_blog_images_entries_in_pin_list()
     random_pin = random.choice(pins)
     for board in random_pin.get('boards_to_post_to'):
+        print(f"Attempting to post pin {random_pin.get('title')} to board: {board}")
         board_id = pinterest_api.get_board_id_from_name(board)
         pinterest_api.post_pin(board_id, random_pin.get('title'), random_pin.get('description'), random_pin.get('media_url'), random_pin.get('link'))
         if post_to_travel_board:
@@ -71,6 +74,7 @@ def post_recent_pin(pinterest_api, post_to_travel_board=False):
     pins = get_most_recent_blog_post_images()
     for pin in pins:
         for board_name in pin.get('boards_to_post_to'):
+            print(f"Attempting to post pin {pin.get('title')} to board: {board_name}")
             board_id = pinterest_api.get_board_id_from_name(board_name)
             pinterest_api.post_pin(board_id, pin.get('title'), pin.get('description'), pin.get('media_url'), pin.get('link'))
             if post_to_travel_board:

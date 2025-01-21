@@ -91,6 +91,22 @@ class PinterestAPI:
                 print(f"Board ID: {board['id']}, Name: {board['name']}")
         else:
             print("Error fetching boards:", response.json())
+    
+    def delete_all_boards(self):
+        boards_url = "https://api.pinterest.com/v5/boards/"
+        response = requests.get(boards_url, headers=self.headers)
+        if response.status_code == 200:
+            boards = response.json()["items"]
+            for board in boards:
+                board_id = board["id"]
+                delete_board_url = f"https://api.pinterest.com/v5/boards/{board_id}"
+                response = requests.delete(delete_board_url, headers=self.headers)
+                if response.status_code == 204:
+                    print(f"Board {board_id} deleted successfully.")
+                else:
+                    print(f"Error deleting board {board_id}:", response.json())
+        else:
+            print("Error fetching boards:", response.json())
 
     def post_pin(self, board_id, title, description, media_url, link):
         pin_url = "https://api.pinterest.com/v5/pins"
