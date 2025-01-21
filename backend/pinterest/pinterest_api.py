@@ -106,7 +106,7 @@ class PinterestAPI:
         }
         response = requests.post(pin_url, json=payload, headers=self.headers)
         if response.status_code == 201:
-            print("Pin Created Successfully:", response.json())
+            print("Pin Created Successfully!")
         elif response.status_code == 403:
             self.send_failure_email("post_pin")
         else:
@@ -149,7 +149,7 @@ class PinterestAPI:
                 if board['name'] == board_name:
                     return board['id']
             print(f"Board {board_name} not found. Creating board...")
-            return self.create_board_and_get_id(self.access_token, board_name)
+            return self.create_board_and_get_id(board_name)
         elif response.status_code == 403:
             self.send_failure_email("get_board_id_from_name")
         else:

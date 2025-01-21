@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 import random
 from typing import List
-from backend.pinterest.pinterest_api import PinterestAPI, Pin
+from pinterest_api import PinterestAPI, Pin
 
 load_dotenv()
 # Load environment variables

@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
-from backend.pinterest.pinterest_api import PinterestAPI
-from backend.pinterest.pinterest_main import post_recent_pin
+from pinterest_api import PinterestAPI
+from pinterest_main import post_recent_pin
 
 load_dotenv()
 USER_TOKEN = os.getenv("PINTEREST_USER_TOKEN")
