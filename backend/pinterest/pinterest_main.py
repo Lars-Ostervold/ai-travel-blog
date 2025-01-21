@@ -65,7 +65,10 @@ def post_random_pin_multiple_boards(pinterest_api, post_to_travel_board=False):
     random_pin = random.choice(pins)
     for board in random_pin.get('boards_to_post_to'):
         print(f"Attempting to post pin {random_pin.get('title')} to board: {board}")
+        # print("Making sure board_id updates")
+        # print(f"Before: {board_id}") if 'board_id' in locals() else print("board_id not defined yet")
         board_id = pinterest_api.get_board_id_from_name(board)
+        # print(f"After: {board_id}")
         pinterest_api.post_pin(board_id, random_pin.get('title'), random_pin.get('description'), random_pin.get('media_url'), random_pin.get('link'))
         if post_to_travel_board:
             pinterest_api.post_pin_to_travel_board(random_pin.get('title'), random_pin.get('description'), random_pin.get('media_url'), random_pin.get('link'))
