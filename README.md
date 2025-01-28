@@ -68,7 +68,7 @@ The frontend is built with Next.js and TypeScript. Displays posts based on .md f
 
 ## Conclusion
 
-Thanks for checking out the AI Travel Blog project! It's been an exciting journey to build and experiment with this self-sustaining blog. Whether you're here to learn, get inspired, or just curious about AI and automation, I hope you found something interesting. Feel free to explore the code, suggest improvements, or even fork the project to create your own version. Happy travels and happy coding! 🚀🌍
+Thanks for checking out the AI Travel Blog project! It's been an exciting journey to build and experiment with this self-sustaining blog. I hope you found something interesting. Feel free to explore the code, suggest improvements, or fork me. Happy travels and happy coding! 🚀🌍
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.
