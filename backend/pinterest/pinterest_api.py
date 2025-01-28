@@ -82,15 +82,47 @@ class PinterestAPI:
 
         s.quit()
 
-    def fetch_boards(self):
+    def fetch_and_print_first_25_boards(self):
         boards_url = "https://api.pinterest.com/v5/boards/"
-        response = requests.get(boards_url, headers=self.headers)
+        params = {
+            "page_size": 25,
+        }
+        response = requests.get(boards_url, headers=self.headers, params=params)
         if response.status_code == 200:
             boards = response.json()["items"]
             for board in boards:
                 print(f"Board ID: {board['id']}, Name: {board['name']}")
         else:
             print("Error fetching boards:", response.json())
+    
+    #Pinterest fetches 25 by default, max is 250. Set up a loop to fetch all boards.
+    def fetch_all_boards(self):
+        boards_url = "https://api.pinterest.com/v5/boards/"
+        all_boards = []
+        bookmark = None
+
+        while True:
+            params = {
+                "page_size": 250,
+            }
+            if bookmark:
+                params["bookmark"] = bookmark
+
+            response = requests.get(boards_url, headers=self.headers, params=params)
+            if response.status_code == 200:
+                data = response.json()
+                boards = data["items"]
+                all_boards.extend(boards)
+                bookmark = data.get("bookmark")
+                if not bookmark:
+                    break
+            elif response.status_code == 403:
+                self.send_failure_email("get_board_id_from_name")
+            else:
+                print("Error fetching boards:", response.json())
+                break      
+
+        return all_boards
     
     def delete_all_boards(self):
         boards_url = "https://api.pinterest.com/v5/boards/"
@@ -157,20 +189,18 @@ class PinterestAPI:
             return None
     
     def get_board_id_from_name(self, board_name):
-        boards_url = "https://api.pinterest.com/v5/boards/"
-        response = requests.get(boards_url, headers=self.headers)
-        if response.status_code == 200:
-            boards = response.json()["items"]
-            for board in boards:
-                if board['name'] == board_name:
-                    return board['id']
-            print(f"Board {board_name} not found. Creating board...")
-            return self.create_board_and_get_id(board_name)
-        elif response.status_code == 403:
-            self.send_failure_email("get_board_id_from_name")
-        else:
-            print("Error fetching boards:", response.json())
-        return None
+        all_boards = self.fetch_all_boards()
+        if not all_boards:
+            print("No boards found. Likely error in fetching boards.")
+            return None
+        for board in all_boards:
+            print(f"Board name from Pinterest: {board['name']}")
+            print(f"Board name from input: {board_name}")
+            if board['name'] == board_name:
+                print("-----------------MATCH TRIGGERED-----------------")
+                return board['id']
+        print(f"Board {board_name} not found. Creating board...")
+        return self.create_board_and_get_id(board_name)
     
     def post_pin_to_travel_board(self, title, description, media_url, link):
         board_id = self.get_board_id_from_name('Travel')
