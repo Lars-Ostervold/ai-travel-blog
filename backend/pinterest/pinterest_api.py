@@ -194,10 +194,7 @@ class PinterestAPI:
             print("No boards found. Likely error in fetching boards.")
             return None
         for board in all_boards:
-            print(f"Board name from Pinterest: {board['name']}")
-            print(f"Board name from input: {board_name}")
             if board['name'] == board_name:
-                print("-----------------MATCH TRIGGERED-----------------")
                 return board['id']
         print(f"Board {board_name} not found. Creating board...")
         return self.create_board_and_get_id(board_name)
