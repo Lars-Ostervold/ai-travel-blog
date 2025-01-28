@@ -187,7 +187,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     DO NOT GENERATE MORE THAN 4 PROMPTS
     
     Focus on elements from the post that do not include the main characters (Audrey, Noah, Max, Leo).
-    Rarely include prompts of the main character. Usually zero prompts should include the main characters, sparingly, a maximum of one prompt.
+    Rarely include prompts of the main character. Usually zero prompts should include the Audrey, Max, Leo, or Noah, sparingly, a maximum of one prompt.
 
     If you generate images of Audrey, Max, Leo, or Noah, here are special instructions you must follow. Ignore these if you do not generate images of the main characters:
     - Only one main character should be in focus in the image. There should be no other people in the foreground.
@@ -214,7 +214,7 @@ def generate_image_prompts_from_blog_post(blog_post: str) -> List[str]:
     modified_prompts = []
     for prompt in prompts:
         #aspect ratio
-        prompt += " --ar 3:2 --q 2"
+        prompt += " --ar 2:3 --q 2"
         if "AUDREY" in prompt.upper() or "NOAH" in prompt.upper() or "MAX" in prompt.upper() or "LEO" in prompt.upper():
             prompt += " --cref "
         if "AUDREY" in prompt.upper():
