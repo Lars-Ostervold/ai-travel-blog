@@ -32,7 +32,6 @@ guild_id = os.getenv("DISCORD_GUILD_ID")
 channel_id = os.getenv("DISCORD_CHANNEL_ID")
 version = os.getenv("DISCORD_VERSION")
 id = os.getenv("DISCORD_ID")
-authorization = os.getenv("DISCORD_BOT_TOKEN")
 self_authorization = os.getenv("DISCORD_AUTHORIZATION_TOKEN")
 
 
