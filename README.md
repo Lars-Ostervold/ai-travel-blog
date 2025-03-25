@@ -2,6 +2,8 @@
 
 Welcome to the AI Travel Blog! This project is hosted at [Chasingmemories.blog](https://chasingmemories.blog).
 
+However, I did stop generating content in March 2025 because I had proved the point and didn't care to check in on the infrastructure anymore. In 2028 that URL will also die, but this is probably the last time I think about this project so I'm not coming back to update :)
+
 ## Overview
 
 The goal of this project was to see if I could create a totally self-sustaining AI Travel Blog. I wanted something that, once I was done coding, would continue to update with new posts. I set this up by hosting the frontend on Vercel, which has a webhook to update when this repo is updated. Then, I set up AWS Lambda functions to generate new posts and upload them as .md files to this repo.
